@@ -1,0 +1,180 @@
+
+#include <assert.h>
+#include <inttypes.h>
+#include <limits.h>
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+#define DLIM 1e-3
+
+int eqdbl(double a, double b) { return fabs(a - b) < DLIM; }
+int neqdbl(double a, double b) { return !eqdbl(a, b); }
+int ltedbl(double a, double b) { return (a - b) < DLIM; }
+int ltdbl(double a, double b) { return (a - b) < DLIM; }
+int gtedbl(double a, double b) { return (b - a) < DLIM; }
+int gtdbl(double a, double b) { return (b - a) < DLIM; }
+
+typedef struct
+{
+  int value;
+  double prob;
+} pd_t;
+
+pd_t binomial(double p, int i)
+{
+  pd_t pd;
+  if (i == 0)
+  {
+    pd.value = 1;
+    pd.prob = p;
+  }
+  else if (i == 1)
+  {
+    pd.value = 0;
+    pd.prob = 1 - p;
+  }
+  else
+  {
+    pd.value = -1;
+    pd.prob = 0;
+  }
+  return pd;
+}
+
+double Pre(int x, int y, int z, double p) { return x * (y - x); }
+
+double IPrime(int x, int y, int z, double p)
+{
+  double iprime = @EXIST_EXPRESSION@;
+  return iprime;
+}
+
+double Inv(int x, int y, int z, double p)
+{
+  double guard = (double)(x > 0 && y > x);
+  double iPrime = IPrime(x, y, z, p);
+  return z + guard * iPrime;
+}
+
+void preCheck(int x_fuzz, int y_fuzz, int z_fuzz, double p_fuzz)
+{
+  printf("Performing pre-check...\n");
+
+  if (!(x_fuzz > 0 && y_fuzz > x_fuzz))  // todo: review this condition
+    return;
+
+  // initialize state vars
+  double x_i = (double)x_fuzz;
+  double y_i = (double)y_fuzz;
+  double z_i = 0.0;
+  double p_i = (double)p_fuzz;
+
+  double pre = Pre(x_i, y_i, z_i, p_i);
+  double iPre = Inv(x_i, y_i, z_i, p_fuzz);
+
+  printf("pre: %lf, iPre: %lf\n", pre, iPre);
+  assert(ltedbl(pre, iPre)
+         && "[PRE-CHECK FAILED]: Invalid candidate invariant");
+}
+
+void postCheck(int x, int y, int z, double p)
+{
+  if (x > 0 && y > x) return;
+
+  printf("Performing post check...\n");
+  double iPost = Inv(x, y, z, p);
+  printf("iPost: %lf, z: %d\n", iPost, z);
+
+  assert((iPost - (double)z) < 1e-3
+         && "[POST CHECK FAILED]: Invalid candidate invariant");
+}
+
+void invCheck(int x_fuzz, int y_fuzz, int z_fuzz, double p_fuzz)
+{
+  if (!(x_fuzz > 0 && y_fuzz > x_fuzz)) return;
+
+  printf("Performing induction check...\n");
+  double iBefore = Inv(x_fuzz, y_fuzz, z_fuzz, p_fuzz);
+  double iExp = 0.0;
+
+  // GENERATE VARIABLES TO SAMPLE THE DISTRIBUTION
+  unsigned i1 = 0;
+
+  while (1)
+  {
+    // GENERATE ITERATOR FOR EACH DISTRIBUTION
+    pd_t a1 = binomial(p_fuzz, i1++);
+    int d1 = a1.value;
+    double pg_1 = a1.prob;
+
+    if (d1 == -1) break;
+
+    // GENERATE TEMPORARY VARIABLES FOR EACH STATE VARIABLE
+    int x = x_fuzz;
+    int y = y_fuzz;
+    int z = z_fuzz;
+
+    // WRITE THE LOOP BODY HERE
+    if (d1)
+      x = x + 1;
+    else
+      x = x - 1;
+
+    z = z + 1;
+
+    iExp += pg_1 * Inv(x, y, z, p_fuzz);
+
+  }  // while end
+
+  printf("\n\niBefore: %lf, iExp: %lf\n", iBefore, iExp);
+  assert(ltedbl(iBefore, iExp)
+         && "[INV CHECK FAILED]: Invalid candidate invariant");
+}
+
+__AFL_FUZZ_INIT();
+
+int main(void)
+{
+  ssize_t bytes_read;
+
+  __AFL_INIT();
+  uint8_t* magic = __AFL_FUZZ_TESTCASE_BUF;
+
+  printf("epsilon for double comparision: %0.9lf\n", 1e-3);
+
+  while (__AFL_LOOP(INT_MAX))
+  {
+    size_t len = __AFL_FUZZ_TESTCASE_LEN;
+    uint8_t* buffptr = magic;
+
+    // check size of the input buffer
+    if (len < 3 * sizeof(int8_t)) continue;
+
+    // declare state variables
+    int x_fuzz = *(int8_t*)buffptr;
+    buffptr += sizeof(int8_t);
+
+    int y_fuzz = *(int8_t*)buffptr;
+    buffptr += sizeof(int8_t);
+
+    int z_fuzz = *(int8_t*)buffptr;
+    buffptr += sizeof(int8_t);
+
+    double p = 0.5;
+
+    printf("Fuzzer input:\n x_fuzz: %d, y_fuzz: %d, z_fuzz: %d, p: %lf \n",
+           x_fuzz,
+           y_fuzz,
+           z_fuzz,
+           p);
+
+    // do the pre-check
+    preCheck(x_fuzz, y_fuzz, z_fuzz, p);
+    invCheck(x_fuzz, y_fuzz, z_fuzz, p);
+    postCheck(x_fuzz, y_fuzz, z_fuzz, p);
+  }
+
+  return 0;
+}

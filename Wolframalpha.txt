@@ -1,0 +1,20 @@
+For invariant:  ((1-p1))^(1) * (p1)^(-1)*1
+
+for case 0
+Check[N[NMaximize[{Simplify[(0*(((1-p1))^(1)*(p1)^(-1)*1+z)-(p1*(0*(((1-p1))^(1)*(p1)^(-1)*1)+z)+(1-p1)*(0*(((1-p1))^(1)*(p1)^(-1)*1)+(z+1))))],Reduce[Rationalize[(flip!=0)&&(0<=flip<=1)&&(0.01<=p1<=0.99)&&(0<=z<=25)]]},{Element[flip|p1|z,Reals]}]],false,Power::infy]
+(-0.010000000000000009, (Rule['flip', 0.0], Rule['p1', 0.99], Rule['z', 0.0]))
+for case 1
+Check[N[NMaximize[{Simplify[(1*(((1-p1))^(1)*(p1)^(-1)*1+z)-(p1*(0*(((1-p1))^(1)*(p1)^(-1)*1)+z)+(1-p1)*(1*(((1-p1))^(1)*(p1)^(-1)*1)+(z+1))))],Reduce[Rationalize[(flip==0)&&(0<=flip<=1)&&(0.01<=p1<=0.99)&&(0<=z<=25)]]},{Element[flip|p1|z,Reals]}]],false,Power::infy]
+(0.0, (Rule['flip', 0.0], Rule['p1', 0.01], Rule['z', 0.0]))
+for case 2
+Check[FindInstance[(0*(((1-p1))^(1)*(p1)^(-1)*1+z)-(p1*(0*(((1-p1))^(1)*(p1)^(-1)*1)+z)+(1-p1)*(0*(((1-p1))^(1)*(p1)^(-1)*1)+(z+1))))>0 && (flip!=0)&&(0<=flip<=1)&&(0.01<=p1<=0.99)&&(0<=z<=25), {Element[flip|p1|z,Reals]}],false,Power::infy]
+()
+for case 3
+Check[FindInstance[(1*(((1-p1))^(1)*(p1)^(-1)*1+z)-(p1*(0*(((1-p1))^(1)*(p1)^(-1)*1)+z)+(1-p1)*(1*(((1-p1))^(1)*(p1)^(-1)*1)+(z+1))))>0 && (flip==0)&&(0<=flip<=1)&&(0.01<=p1<=0.99)&&(0<=z<=25), {Element[flip|p1|z,Reals]}],false,Power::infy]
+()
+for case 4
+Check[N[NMaximize[{Simplify[((1-p1)/p1-(1*(((1-p1))^(1)*(p1)^(-1)*1+0)))],Reduce[Rationalize[(0<=flip<=1)&&(0.01<=p1<=0.99)&&(0<=z<=25)]]},{Element[flip|p1|z,Reals]}]],false,Power::infy]
+(0.0, (Rule['flip', 0.0], Rule['p1', 0.01], Rule['z', 0.0]))
+for case 5
+Check[FindInstance[((1-p1)/p1-(1*(((1-p1))^(1)*(p1)^(-1)*1+0)))>0 && (0<=flip<=1)&&(0.01<=p1<=0.99)&&(0<=z<=25), {Element[flip|p1|z,Reals]}],false,Power::infy]
+()

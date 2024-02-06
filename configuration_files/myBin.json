@@ -1,0 +1,27 @@
+{
+    "Sample_Points": {
+        "Probs": [
+            "p"
+        ],
+        "Integers": [
+            "x",
+            "y",
+            "n",
+            "z"
+        ]
+    },
+    "wp": {
+        "guard": "[n > 0]",
+        "loopbody": "x=x+1[p]skip;n=n+1",
+        "pre": [
+            "-p*n + p*M"
+        ],
+        "post": "x"
+    },
+    "additional features for exact": {
+        "Probs": [
+            "(p*n)",
+            "(p*n*y)"
+        ]
+    }
+}

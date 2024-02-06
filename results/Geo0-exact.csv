@@ -1,0 +1,2 @@
+,generated_inv,post,sampling_time,learning_time,verifying_time,total_time
+Geo0,z + [flip == 0] * (1-p1)**1 * p1**-1*1,z,0.001789093017578125,1.7497437000274658,20.17241644859314,21.92414140701294

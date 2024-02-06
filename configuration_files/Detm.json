@@ -1,0 +1,16 @@
+{
+    "Sample_Points": {
+        "Integers": [
+            "count",
+            "x"
+        ]
+    },
+    "wp": {
+        "guard": "[x <= 10]",
+        "loopbody": "x=x+1;count=count+1",
+        "pre": [
+            "1"
+        ],
+        "post": "count"
+    }
+}

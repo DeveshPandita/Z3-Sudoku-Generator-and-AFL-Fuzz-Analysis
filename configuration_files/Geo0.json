@@ -1,0 +1,34 @@
+{
+    "Sample_Points": {
+        "Probs": [
+            "p1"
+        ],
+        "Booleans": [
+            "flip"
+        ],
+        "Integers": [
+            "z"
+        ]
+    },
+    "wp": {
+        "guard": "[flip == 0]",
+        "loopbody": "flip=1[p1]z=z+1",
+        "pre": [
+            "(1-p1)/p1"
+        ],
+        "post": "z",
+        "assignments": [
+            "flip==0",
+            "z==0"
+        ]
+    },
+    "cgen": {
+        "probs" : ["p1"],
+        "vars" : "{'flip' : 'bool', 'z' : 'int', 'p1' : 'double'}",
+        "guard": "flip == 0",
+        "loopbody": "if (d) flip = 1; else z = z + 1;",
+        "pre": "(1 - p1) / p1",
+        "post": "z",
+	    "template":"c_template/geo0.c.in"
+    }
+}
