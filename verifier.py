@@ -9,6 +9,11 @@ import numpy as np
 from wolframclient.evaluation import SecuredAuthenticationKey
 
 
+
+from sympy import symbols, sympify
+from pyparsing import *
+
+
 import codegen
 import ast
 
@@ -37,6 +42,217 @@ class MathConsumer(WXFConsumer):
             return super().consume_symbol(current_token, tokens, **kwargs)
 
 
+
+
+
+
+
+
+
+def generate_c_expr(pyterms):
+    # TODO: should return a C expression string
+    c_expr=""
+    # define some basic operand expressions
+    number = Regex(r'\d+(\.\d*)?([Ee][+-]?\d+)?')
+    ident = Word(alphas+'', alphanums+'')
+
+    # forward declare our overall expression, since a slice could 
+    # contain an arithmetic expression
+    expr = Forward()
+    slice_ref = '[' + expr + ']'
+
+    # define our arithmetic operand
+    operand = number | Combine(ident + Optional(slice_ref))
+
+    # parse actions to convert parsed items
+    def convert_to_pow(tokens):
+        tmp = tokens[0][:]
+        ret = tmp.pop(-1)
+        tmp.pop(-1)
+        while tmp:
+            base = tmp.pop(-1)
+            # hack to handle '**' precedence ahead of '-'
+            if base.startswith('-'):
+                ret = '-pow(%s,%s)' % (base[1:], ret)
+            else:
+                ret = 'pow(%s,%s)' % (base, ret)
+            if tmp:
+                tmp.pop(-1)
+        return ret
+
+    def unary_as_is(tokens):
+        return '(%s)' % ''.join(tokens[0])
+
+    def as_is(tokens):
+        return '%s' % ''.join(tokens[0])
+
+    # simplest infixNotation - may need to add a few more operators, but start with this for now
+    arith_expr = infixNotation( operand,
+        [
+        ('-', 1, opAssoc.RIGHT, as_is),
+        ('**', 2, opAssoc.LEFT, convert_to_pow),
+        ('-', 1, opAssoc.RIGHT, unary_as_is),
+        (oneOf("* /"), 2, opAssoc.LEFT, as_is),
+        (oneOf("+ -"), 2, opAssoc.LEFT, as_is),
+        ])
+
+    # now assign into forward-declared expr
+    expr <<= arith_expr.setParseAction(lambda t: '(%s)' % ''.join(t))
+
+        
+    for i in range(len(pyterms)):
+        xform = expr.transformString(str(pyterms[i][1]))[1:-1]
+        check=str(pyterms[i][0])
+        count=-1
+        exp=''
+        a=''
+        b=''
+        for c in check:
+            count+=1
+            if(c=='='):
+                exp='=='
+                a=check[0:count]
+                b=check[count+2:]
+                break
+            if(c=='!'):
+                exp='!='
+                a=check[0:count]
+                b=check[count+2:]
+                break
+            if(c=='<'):
+                if(check[count+1]=='='):
+                    exp='<='
+                    a=check[0:count]
+                    b=check[count+2:]
+                else:
+                    exp='<'
+                    a=check[0:count]
+                    b=check[count+1:]
+                break
+            if(c=='>'):
+                if(check[count+1]=='='):
+                    exp='>='
+                    a=check[0:count]
+                    b=check[count+2:]
+                else:
+                    exp='>'
+                    a=check[0:count]
+                    b=check[count+1:]
+                break
+        a=a.strip()
+        b=b.strip()
+        s=""
+        if(exp=='=='):
+            s= f"eqdbl({a}, {b})"
+        elif(exp=='!='):
+            s= f"neqdbl({a}, {b})"
+        elif(exp=='<='):
+            s=f"ltedbl({a}, {b})"
+        elif(exp=='<'):
+            s=f"ltdbl({a}, {b})"
+        elif(exp=='>='):
+            s=f"gtedbl({a}, {b})"
+        elif(exp=='>'):
+            s=f"gtdbl({a}, {b})"
+
+
+        if s != "": s="["+s+"]"+"*"+xform
+        else: s=xform
+        # print(str)
+        if(i==0): c_expr=s
+        else: c_expr=c_expr+"+"+s
+    return c_expr
+
+
+
+
+def evaluate_expression_with_guard(expression):
+    # Define symbolic variables
+    # variables = symbols(','.join(variable_values.keys()))
+
+    # Split the expression into terms
+    # terms = expression.split(']')
+    start_flag=False
+    stack = []
+    expression=expression.strip()
+    terms = re.split(r'[\[\]]', expression)
+    pyterms = []
+
+    # Evaluate each term separately
+    result = 0
+    if terms[0]!='':
+        # This implies starting expression does not have a guard
+        terms[0]='*'+terms[0]
+        guard_expression="1==1"
+    else: terms=terms[1:]
+    # terms=terms[1:]
+    print("Term list: {}".format(terms))
+    terms = [term.strip() for term in terms]
+    for t in terms:
+        t=t.strip()
+        print(f"{t}")
+        if t[0] != '*':            
+            guard_part = t
+            print(f'{guard_part}')
+
+            # Parse the guard expression
+            guard_expression = sympify(guard_part)
+            print(f'guard: {guard_expression}')
+
+        else:
+            l = []
+            prev=0
+            for index, c in enumerate(t):
+                if c=='+' and not stack and index!=len(t)-1:
+                    l.append(t[prev:index].strip())
+                    prev=index+1
+                elif index==len(t)-1:
+                    l.append(t[prev:].strip())
+                elif c=='(':
+                    stack.append(1)
+                elif c==')':
+                    stack.pop()
+            print(len(l))
+            if not l:
+                if(t[len(t)-1]=='+'): t=t[:len(t)-1]
+                t=t[1:]
+                t=t.strip()
+                print(t)
+                main_part = t
+                main_expression = sympify(main_part)  
+                if main_expression == 0: continue
+                pyterms.append((guard_expression, main_expression))
+            else:
+                p=l[0]
+                if(p[len(p)-1]=='+'): p=p[:len(p)-1]
+                p=p[1:]
+                p=p.strip()
+                print(p)
+                main_part = p
+                main_expression = sympify(main_part)  
+                if main_expression == 0: continue
+                pyterms.append((guard_expression, main_expression))
+
+                for index,p in enumerate(l):
+                    if index==0: continue
+                    if(p[len(p)-1]=='+'): p=p[:len(p)-1]
+                    main_part=p
+                    main_expression = sympify(main_part)  
+                    if main_expression == 0: continue
+                    pyterms.append((True, main_expression))          
+        
+    return pyterms
+
+
+
+
+
+
+
+
+
+
+
 class Verifier:
     """
     Given:
@@ -45,9 +261,12 @@ class Verifier:
         [cegis_one_prog]
     """
 
+
+
     def __init__(self, invariant, invariant_c, assumed_shape, task, session, config) -> None:
         self.invexpr = invariant
-        self.invexpr_c = invariant_c
+        #self.invexpr_c = invariant_c
+        self.invexpr_c = generate_c_expr(evaluate_expression_with_guard(invariant_c))
         self.config = config
         invariant = invariant.replace("**", "^")
         self.inv = invariant
