@@ -156,7 +156,7 @@ def generate_c_expr(pyterms):
             s=f"gtdbl({a}, {b})"
 
 
-        if s != "": s="["+s+"]"+"*"+xform
+        if s != "": s="("+s+")"+"*"+xform
         else: s=xform
         # print(str)
         if(i==0): c_expr=s

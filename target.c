@@ -38,7 +38,7 @@ pd_t binomial(double p, int i) {
 double Pre(int flip, int z, double p) { return (1 - p) / p; }
 
 double IPrime(int flip, int z, double p1) { 
-    double iprime = [eqdbl(1, 1)]*(1-p1)/p1;
+    double iprime = (eqdbl(1, 1))*(1-p1)/p1;
     return iprime;
 }
 
