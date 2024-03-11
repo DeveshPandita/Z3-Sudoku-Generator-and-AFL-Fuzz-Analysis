@@ -1,0 +1,2 @@
+,generated_inv,post,sampling_time,learning_time,verifying_time,total_time
+Sum0,x + [n > 0] * (0.5)*(p*n) + (0.5)*(p*n*n)+0.0,x,52.20354890823364,29.279199838638306,595.4458341598511,676.9286870956421

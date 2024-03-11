@@ -1,0 +1,254 @@
+     Benchmark name: Sum0; Post-exp: x
+Exist generates the following set of features:
+     ['(n-x)', '((p*n)+(p*n*n))', '((p*n*n)-n)', '(n+x)', 'p', '(n-(p*n))', '(1-p)', '(x-(p*n))', '(x-(p*n*n))', '((p*n*n)+n)', '((p*n)-x)', '((p*n)-(p*n*n))', '((p*n)-n)', '(p*n)', '((p*n*n)+x)', '(x-n)', '((p*n)+x)', 'n', '(1+p)', 'x', '(n-(p*n*n))', '((p*n*n)-x)', '((p*n*n)-(p*n))', '((p*n)+n)', '(p*n*n)']
+     Start sampling Sum0
+     It takes 52.27644991874695 time to sample Sum0
+
+
+===== Iteration 0 =====
+
+INV : (1)*(p*n*n)+0
+for depth 0 and round 0 the invaraint is:
+ (1)*(p*n*n)+0
+C version:(1)*(p*n*n)+0
+INV : (0.5)*(p*n) + (0.5)*(p*n*n)+0.0
+for depth 0 and round 1 the invaraint is:
+ (0.5)*(p*n) + (0.5)*(p*n*n)+0.0
+C version:(0.5)*(p*n) + (0.5)*(p*n*n)+0.0
+INV : (0.47999998927116394)*(p*n) + (0.5)*(p*n*n) + (-0.009999999776482582)*n + (0.009999999776482582)*x+0.02
+for depth 0 and round 2 the invaraint is:
+ (0.47999998927116394)*(p*n) + (0.5)*(p*n*n) + (-0.009999999776482582)*n + (0.009999999776482582)*x+0.02
+C version:(0.47999998927116394)*(p*n) + (0.5)*(p*n*n) + (-0.009999999776482582)*n + (0.009999999776482582)*x+0.02
+INV : (0.4749999940395355)*(p*n) + (0.5009999871253967)*(p*n*n) + (-0.008999999612569809)*n + (0.006000000052154064)*x+0.021
+for depth 0 and round 3 the invaraint is:
+ (0.4749999940395355)*(p*n) + (0.5009999871253967)*(p*n*n) + (-0.008999999612569809)*n + (0.006000000052154064)*x+0.021
+C version:(0.4749999940395355)*(p*n) + (0.5009999871253967)*(p*n*n) + (-0.008999999612569809)*n + (0.006000000052154064)*x+0.021
+INV : [(p*n) == 10.830 ]*(0+106)+[(p*n) != 10.830 ]*((1)*(p*n*n)+0)
+for depth 1 and round 0 the invaraint is:
+ [(p*n) == 10.830 ]*(0+106)+[(p*n) != 10.830 ]*((1)*(p*n*n)+0)
+C version:(eqdbl((p*n), 10.830))*(0+106)+(eqdbl((p*n), 10.830))*((1)*(p*n*n)+0)
+INV : [(p*n) == 10.830 ]*(0+105.5)+[(p*n) != 10.830 ]*((0.5)*(p*n) + (0.5)*(p*n*n)+0.0)
+for depth 1 and round 1 the invaraint is:
+ [(p*n) == 10.830 ]*(0+105.5)+[(p*n) != 10.830 ]*((0.5)*(p*n) + (0.5)*(p*n*n)+0.0)
+C version:(eqdbl((p*n), 10.830))*(0+105.5)+(eqdbl((p*n), 10.830))*((0.5)*(p*n) + (0.5)*(p*n*n)+0.0)
+INV : [(p*n) == 10.830 ]*(0+105.53)+[(p*n) != 10.830 ]*((0.4699999988079071)*(p*n) + (0.5)*(p*n*n) + (-0.009999999776482582)*n+0.04)
+for depth 1 and round 2 the invaraint is:
+ [(p*n) == 10.830 ]*(0+105.53)+[(p*n) != 10.830 ]*((0.4699999988079071)*(p*n) + (0.5)*(p*n*n) + (-0.009999999776482582)*n+0.04)
+C version:(eqdbl((p*n), 10.830))*(0+105.53)+(eqdbl((p*n), 10.830))*((0.4699999988079071)*(p*n) + (0.5)*(p*n*n) + (-0.009999999776482582)*n+0.04)
+INV : [(p*n) == 10.830 ]*(0+105.526)+[(p*n) != 10.830 ]*((0.4699999988079071)*(p*n) + (0.5019999742507935)*(p*n*n) + (-0.008999999612569809)*n + (0.004999999888241291)*x+0.042)
+for depth 1 and round 3 the invaraint is:
+ [(p*n) == 10.830 ]*(0+105.526)+[(p*n) != 10.830 ]*((0.4699999988079071)*(p*n) + (0.5019999742507935)*(p*n*n) + (-0.008999999612569809)*n + (0.004999999888241291)*x+0.042)
+C version:(eqdbl((p*n), 10.830))*(0+105.526)+(eqdbl((p*n), 10.830))*((0.4699999988079071)*(p*n) + (0.5019999742507935)*(p*n*n) + (-0.008999999612569809)*n + (0.004999999888241291)*x+0.042)
+This is the returned exp: 100000000
+INV : ((p*n)-(p*n*n))**2 * ((p*n)-n)**2 * ((p*n)+(p*n*n))**1*100000000
+This is the returned exp: 100000000
+for depth 0 and round 0 the invaraint is:
+ ((p*n)-(p*n*n))**2 * ((p*n)-n)**2 * ((p*n)+(p*n*n))**1*100000000
+C version:(pow(((p*n)-(p*n*n)), 2)) * (pow(((p*n)-n), 2)) * (pow(((p*n)+(p*n*n)), 1))*100000000
+WORKING IN LOGSPACE
+This is the returned exp: 60.18000411987305
+This is the returned exp: 0.3119723930090639
+This is the returned exp: 100000000
+INV : [((p*n*n)+x) <= 60.180 ]*(((p*n)+(p*n*n))**1*0)+[((p*n*n)+x) > 60.180 ]*((1+p)**-2 * (1-p)**-2 * p**1 * ((p*n*n)-(p*n))**-6 * (n-(p*n))**2 * ((p*n)+(p*n*n))**-7 * ((p*n)+n)**2 * (p*n)**5 * (p*n*n)**8 * n**3*100000000)
+WORKING IN LOGSPACE
+This is the returned exp: 60.18000411987305
+This is the returned exp: 0.3119723930090639
+This is the returned exp: 100000000
+for depth 1 and round 0 the invaraint is:
+ [((p*n*n)+x) <= 60.180 ]*(((p*n)+(p*n*n))**1*0)+[((p*n*n)+x) > 60.180 ]*((1+p)**-2 * (1-p)**-2 * p**1 * ((p*n*n)-(p*n))**-6 * (n-(p*n))**2 * ((p*n)+(p*n*n))**-7 * ((p*n)+n)**2 * (p*n)**5 * (p*n*n)**8 * n**3*100000000)
+C version:(ltedbl(((p*n*n)+x), 60.180))*((pow(((p*n)+(p*n*n)), 1))*0)+(ltedbl(((p*n*n)+x), 60.180))*((pow((1+p), -2)) * (pow((1-p), -2)) * (pow(p, 1)) * (pow(((p*n*n)-(p*n)), -6)) * (pow((n-(p*n)), 2)) * (pow(((p*n)+(p*n*n)), -7)) * (pow(((p*n)+n), 2)) * (pow((p*n), 5)) * (pow((p*n*n), 8)) * (pow(n, 3))*100000000)
+(1)*(p*n*n)+0
+(0.5)*(p*n) + (0.5)*(p*n*n)+0.0
+(0.47999998927116394)*(p*n) + (0.5)*(p*n*n) + (-0.009999999776482582)*n + (0.009999999776482582)*x+0.02
+(0.4749999940395355)*(p*n) + (0.5009999871253967)*(p*n*n) + (-0.008999999612569809)*n + (0.006000000052154064)*x+0.021
+[(p*n) == 10.830 ]*(0+106)+[(p*n) != 10.830 ]*((1)*(p*n*n)+0)
+[(p*n) == 10.830 ]*(0+105.5)+[(p*n) != 10.830 ]*((0.5)*(p*n) + (0.5)*(p*n*n)+0.0)
+[(p*n) == 10.830 ]*(0+105.53)+[(p*n) != 10.830 ]*((0.4699999988079071)*(p*n) + (0.5)*(p*n*n) + (-0.009999999776482582)*n+0.04)
+[(p*n) == 10.830 ]*(0+105.526)+[(p*n) != 10.830 ]*((0.4699999988079071)*(p*n) + (0.5019999742507935)*(p*n*n) + (-0.008999999612569809)*n + (0.004999999888241291)*x+0.042)
+((p*n)-(p*n*n))**2 * ((p*n)-n)**2 * ((p*n)+(p*n*n))**1*100000000
+[((p*n*n)+x) <= 60.180 ]*(((p*n)+(p*n*n))**1*0)+[((p*n*n)+x) > 60.180 ]*((1+p)**-2 * (1-p)**-2 * p**1 * ((p*n*n)-(p*n))**-6 * (n-(p*n))**2 * ((p*n)+(p*n*n))**-7 * ((p*n)+n)**2 * (p*n)**5 * (p*n*n)**8 * n**3*100000000)
+Trying to verify (1)*(p*n*n)+0
+Trying to verify C expression (1)*(p*n*n)+0
+Term list: ['*(1)*(p*n*n)+0']
+*(1)*(p*n*n)+0
+2
+(1)*(p*n*n)
+[92mGenerating C code for current invariant...[00m
+[92mCandidate expression: (eqdbl(1, 1))*pow(n,2)*p[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+[92mCompilation successful[00m
+[92mStarting fuzzing...[00m
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000002,time:739,execs:80382,op:flip1,pos:1[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '1', 'n': '16', 'p': '0.403922', 'diff': '6.058824'}[00m
+[95mNew delim: 7.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000001,time:1735,execs:210206,op:havoc,rep:9[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '23', 'n': '23', 'p': '0.466740', 'diff': '10.268273'}[00m
+[95mNew delim: 11.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000003,time:2285,execs:283080,op:flip2,pos:8[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '0', 'n': '16', 'p': '0.906250', 'diff': '13.593750'}[00m
+[95mNew delim: 15.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000003,time:2147,execs:263081,op:havoc,rep:3[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '0', 'n': '20', 'p': '0.937510', 'diff': '17.812681'}[00m
+[95mNew delim: 19.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000002,time:7199,execs:919769,op:havoc,rep:18[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '0', 'n': '22', 'p': '0.988114', 'diff': '20.750397'}[00m
+[95mNew delim: 22.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000002,time:2148,execs:263922,op:havoc,rep:3[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '0', 'n': '25', 'p': '0.937529', 'diff': '22.500687'}[00m
+[95mNew delim: 24.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+Timeout occurred, no crash found
+[91mCrash not found[00m
+[91mCould not find a crash. Exiting...[00m
+[91mCEX found: [{'x': 1, 'n': 16, 'p': 0.403922}, {'x': 23, 'n': 23, 'p': 0.46674}, {'x': 0, 'n': 16, 'p': 0.90625}, {'x': 0, 'n': 20, 'p': 0.93751}, {'x': 0, 'n': 22, 'p': 0.988114}, {'x': 0, 'n': 25, 'p': 0.937529}][00m
+[91mInvariant is not valid.[00m
+Trying to verify ((p*n)-(p*n*n))**2 * ((p*n)-n)**2 * ((p*n)+(p*n*n))**1*100000000
+Trying to verify C expression (pow(((p*n)-(p*n*n)), 2)) * (pow(((p*n)-n), 2)) * (pow(((p*n)+(p*n*n)), 1))*100000000
+Term list: ['*(pow(((p*n)-(p*n*n)), 2)) * (pow(((p*n)-n), 2)) * (pow(((p*n)+(p*n*n)), 1))*100000000']
+*(pow(((p*n)-(p*n*n)), 2)) * (pow(((p*n)-n), 2)) * (pow(((p*n)+(p*n*n)), 1))*100000000
+1
+(pow(((p*n)-(p*n*n)), 2)) * (pow(((p*n)-n), 2)) * (pow(((p*n)+(p*n*n)), 1))*100000000
+[92mGenerating C code for current invariant...[00m
+[92mCandidate expression: (eqdbl(1, 1))*100000000*pow((n*p-n),2)*pow(((-pow(n,2))*p+n*p),2)*(pow(n,2)*p+n*p)[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+[92mCompilation successful[00m
+[92mStarting fuzzing...[00m
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000001+000002,time:476,execs:45639,op:splice,rep:19[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '0', 'n': '20', 'p': '0.082464', 'diff': '387795226477835.500000'}[00m
+[95mNew delim: 387795226477837.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000003,time:704,execs:75760,op:flip1,pos:1[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '16', 'n': '14', 'p': '0.453125', 'diff': '1710820484271338.500000'}[00m
+[95mNew delim: 1710820484271339.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000002,time:1112,execs:129375,op:flip1,pos:1[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '6', 'n': '16', 'p': '0.716010', 'diff': '4823834049306811.000000'}[00m
+[95mNew delim: 4823834049306812.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000002,time:2112,execs:260979,op:flip2,pos:1[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '0', 'n': '24', 'p': '0.250058', 'diff': '26857436572931344.000000'}[00m
+[95mNew delim: 2.6857436572931344e+16[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000002,time:2987,execs:372568,op:arith8,pos:1,val:+10[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '12', 'n': '22', 'p': '0.781268', 'diff': '37264635264447072.000000'}[00m
+[95mNew delim: 3.726463526444707e+16[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000001,time:325,execs:26404,op:havoc,rep:7[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '0', 'n': '22', 'p': '0.562608', 'diff': '55645575379628832.000000'}[00m
+[95mNew delim: 5.564557537962883e+16[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000002,time:596,execs:62129,op:flip2,pos:1[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '0', 'n': '25', 'p': '0.627149', 'diff': '140402986149850240.000000'}[00m
+[95mNew delim: 1.4040298614985024e+17[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000002,time:31794,execs:4108338,op:havoc,rep:25[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '5', 'n': '25', 'p': '0.597901', 'diff': '141497005200246080.000000'}[00m
+[95mNew delim: 1.4149700520024608e+17[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+Timeout occurred, no crash found
+[91mCrash not found[00m
+[91mCould not find a crash. Exiting...[00m
+[91mCEX found: [{'x': 0, 'n': 20, 'p': 0.082464}, {'x': 16, 'n': 14, 'p': 0.453125}, {'x': 6, 'n': 16, 'p': 0.71601}, {'x': 0, 'n': 24, 'p': 0.250058}, {'x': 12, 'n': 22, 'p': 0.781268}, {'x': 0, 'n': 22, 'p': 0.562608}, {'x': 0, 'n': 25, 'p': 0.627149}, {'x': 5, 'n': 25, 'p': 0.597901}][00m
+[91mInvariant is not valid.[00m
+Trying to verify [((p*n*n)+x) <= 60.180 ]*(((p*n)+(p*n*n))**1*0)+[((p*n*n)+x) > 60.180 ]*((1+p)**-2 * (1-p)**-2 * p**1 * ((p*n*n)-(p*n))**-6 * (n-(p*n))**2 * ((p*n)+(p*n*n))**-7 * ((p*n)+n)**2 * (p*n)**5 * (p*n*n)**8 * n**3*100000000)
+Trying to verify C expression (ltedbl(((p*n*n)+x), 60.180))*((pow(((p*n)+(p*n*n)), 1))*0)+(ltedbl(((p*n*n)+x), 60.180))*((pow((1+p), -2)) * (pow((1-p), -2)) * (pow(p, 1)) * (pow(((p*n*n)-(p*n)), -6)) * (pow((n-(p*n)), 2)) * (pow(((p*n)+(p*n*n)), -7)) * (pow(((p*n)+n), 2)) * (pow((p*n), 5)) * (pow((p*n*n), 8)) * (pow(n, 3))*100000000)
+Term list: ['*(ltedbl(((p*n*n)+x), 60.180))*((pow(((p*n)+(p*n*n)), 1))*0)+(ltedbl(((p*n*n)+x), 60.180))*((pow((1+p), -2)) * (pow((1-p), -2)) * (pow(p, 1)) * (pow(((p*n*n)-(p*n)), -6)) * (pow((n-(p*n)), 2)) * (pow(((p*n)+(p*n*n)), -7)) * (pow(((p*n)+n), 2)) * (pow((p*n), 5)) * (pow((p*n*n), 8)) * (pow(n, 3))*100000000)']
+*(ltedbl(((p*n*n)+x), 60.180))*((pow(((p*n)+(p*n*n)), 1))*0)+(ltedbl(((p*n*n)+x), 60.180))*((pow((1+p), -2)) * (pow((1-p), -2)) * (pow(p, 1)) * (pow(((p*n*n)-(p*n)), -6)) * (pow((n-(p*n)), 2)) * (pow(((p*n)+(p*n*n)), -7)) * (pow(((p*n)+n), 2)) * (pow((p*n), 5)) * (pow((p*n*n), 8)) * (pow(n, 3))*100000000)
+2
+(ltedbl(((p*n*n)+x), 60.180))*((pow(((p*n)+(p*n*n)), 1))*0)
+[92mGenerating C code for current invariant...[00m
+[92mCandidate expression: [00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation failed. Error: Command '['/home/devesh/Desktop/AFLplusplus/afl-clang-fast', '-o', 'target.exe', 'target.c', '-lm']' returned non-zero exit status 1.
+[91mCEX found: [][00m
+[91mInvariant is not valid.[00m
+True ('[((p*n*n)+x) <= 60.180 ]*(((p*n)+(p*n*n))**1*0)+[((p*n*n)+x) > 60.180 ]*((1+p)**-2 * (1-p)**-2 * p**1 * ((p*n*n)-(p*n))**-6 * (n-(p*n))**2 * ((p*n)+(p*n*n))**-7 * ((p*n)+n)**2 * (p*n)**5 * (p*n*n)**8 * n**3*100000000)', 0.5197221731794053)
+For Sum0: we get x + [n > 0] * [((p*n*n)+x) <= 60.180 ]*(((p*n)+(p*n*n))**1*0)+[((p*n*n)+x) > 60.180 ]*((1+p)**-2 * (1-p)**-2 * p**1 * ((p*n*n)-(p*n))**-6 * (n-(p*n))**2 * ((p*n)+(p*n*n))**-7 * ((p*n)+n)**2 * (p*n)**5 * (p*n*n)**8 * n**3*100000000)
+

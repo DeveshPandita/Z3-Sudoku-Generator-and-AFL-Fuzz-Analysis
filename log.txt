@@ -1,0 +1,48 @@
+     Benchmark name: Geo0; Post-exp: z
+Exist generates the following set of features:
+     ['(1+p1)', 'flip', 'p1', 'z', '(1-p1)']
+     Start sampling Geo0
+     It takes 8.194852828979492 time to sample Geo0
+
+
+===== Iteration 0 =====
+
+This is the returned exp: 0.6255487677424575
+INV : (1-p1)**1 * p1**-1*1
+This is the returned exp: 0.6255487677424575
+for depth 0 and round 0 the invaraint is:
+ (1-p1)**1 * p1**-1*1
+C version:(pow((1-p1), 1)) * (pow(p1, -1))*1
+WORKING IN LOGSPACE
+This is the returned exp: 1.0999999046325684
+This is the returned exp: 0.00142828074197664
+This is the returned exp: 0.5764574960084133
+INV : [(1+p1) <= 1.100 ]*((1+p1)**-13 * (1-p1)**-25 * p1**-2*0)+[(1+p1) > 1.100 ]*((1-p1)**1 * p1**-1*1)
+WORKING IN LOGSPACE
+This is the returned exp: 1.0999999046325684
+This is the returned exp: 0.00142828074197664
+This is the returned exp: 0.5764574960084133
+for depth 1 and round 0 the invaraint is:
+ [(1+p1) <= 1.100 ]*((1+p1)**-13 * (1-p1)**-25 * p1**-2*0)+[(1+p1) > 1.100 ]*((1-p1)**1 * p1**-1*1)
+C version:(ltedbl((1+p1), 1.100))*((pow((1+p1), -13)) * (pow((1-p1), -25)) * (pow(p1, -2))*0)+(ltedbl((1+p1), 1.100))*((pow((1-p1), 1)) * (pow(p1, -1))*1)
+(1-p1)**1 * p1**-1*1
+[(1+p1) <= 1.100 ]*((1+p1)**-13 * (1-p1)**-25 * p1**-2*0)+[(1+p1) > 1.100 ]*((1-p1)**1 * p1**-1*1)
+Trying to verify (1-p1)**1 * p1**-1*1
+Trying to verify C expression (pow((1-p1), 1)) * (pow(p1, -1))*1
+Term list: ['*(pow((1-p1), 1)) * (pow(p1, -1))*1']
+*(pow((1-p1), 1)) * (pow(p1, -1))*1
+1
+(pow((1-p1), 1)) * (pow(p1, -1))*1
+[92mGenerating C code for current invariant...[00m
+[92mCandidate expression: (eqdbl(1, 1))*(1-p1)/p1[00m
+[92mTarget C template: c_template/geo0.c.in[00m
+Compilation successful. Output binary: target.exe
+[92mCompilation successful[00m
+[92mStarting fuzzing...[00m
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+Timeout occurred, no crash found
+[91mCrash not found[00m
+[91mTimeout occurred. Exiting...[00m
+True ('(1-p1)**1 * p1**-1*1', 0.02478790283203125)
+For Geo0: we get z + [flip == 0] * (1-p1)**1 * p1**-1*1
+

@@ -147,6 +147,7 @@ def sample_counterex(
     df = pd.DataFrame(traces)
     df = df.reindex(columns=sorted(df.columns))
     df.to_csv(filename, header=None, mode="a")
+    print(df)
     return df
 
 

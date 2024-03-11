@@ -1,7 +1,7 @@
-start_time        : 1709061981
-last_update       : 1709061981
+start_time        : 1710164929
+last_update       : 1710164929
 run_time          : 0
-fuzzer_pid        : 6321
+fuzzer_pid        : 6339
 cycles_done       : 0
 cycles_wo_finds   : 0
 time_wo_finds     : 0
@@ -18,7 +18,7 @@ cur_item          : 0
 pending_favs      : 1
 pending_total     : 1
 stability         : 75.00%
-bitmap_cvg        : 8.33%
+bitmap_cvg        : 8.16%
 saved_crashes     : 0
 saved_hangs       : 0
 last_find         : 0
@@ -30,7 +30,7 @@ slowest_exec_ms   : 0
 peak_rss_mb       : 0
 cpu_affinity      : 0
 edges_found       : 4
-total_edges       : 48
+total_edges       : 49
 var_byte_count    : 1
 havoc_expansion   : 0
 auto_dict_entries : 0
