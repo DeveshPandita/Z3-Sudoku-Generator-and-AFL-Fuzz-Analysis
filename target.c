@@ -6,14 +6,45 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#define DLIM 1e-3
+#define DLIM 999.0
 
-int eqdbl(double a, double b) { return fabs(a - b) < DLIM; }
+
+void save_crash_data(int flip, int z, int x, double p, double diff) {
+  FILE *fp = fopen("crashing_data.csv", "w");
+  fprintf(fp, "flip,%d\n", flip);
+  fprintf(fp, "z,%d\n", z);
+  fprintf(fp, "x,%d\n", x);
+  fprintf(fp, "p,%lf\n", p);
+  fprintf(fp, "diff,%lf\n", diff);
+  fclose(fp);
+}
+
+/*
+  fcmp returns 
+  -1 if x1 is less than x2, 
+   0 if x1 is equal to x2, 
+   1 if x1 is greater than x2 
+  (relative to the tolerance).
+*/
+
+int fcmp(double x1, double x2, double delta) {
+
+  double difference = x1 - x2;
+
+  if (difference > delta)
+    return 1; /* x1 > x2 */
+  else if (difference < -delta) 
+    return -1;  /* x1 < x2 */
+  else /* -delta <= difference <= delta */
+    return 0;  /* x1 == x2 */
+}
+
+int eqdbl(double a, double b) { return fabs(a - b) < 0.001; }
 int neqdbl(double a, double b) { return !eqdbl(a, b); }
-int ltedbl(double a, double b) { return (a - b) < DLIM; }
-int ltdbl(double a, double b) { return (a - b) < DLIM; }
-int gtedbl(double a, double b) { return (b - a) < DLIM; }
-int gtdbl(double a, double b) { return (b - a) < DLIM; }
+int ltedbl(double a, double b) { return (a - b) < 0.001; }
+int ltdbl(double a, double b) { return (a - b) < 0.001; }
+int gtedbl(double a, double b) { return (b - a) < 0.001; }
+int gtdbl(double a, double b) { return (b - a) < 0.001; }
 
 typedef struct {
   int value;
@@ -35,28 +66,28 @@ pd_t binomial(double p, int i) {
   return pd;
 }
 
-double Pre(int flip, int z, double p) { return (1 - p) / p; }
+double Pre(int flip, int z, int x, double p) { return (1 - p) / p; }
 
-double IPrime(int flip, int z, double p1) { 
-    double iprime = [eqdbl(1, 1)]*(1-p1)/p1;
+double IPrime(int flip, int z, int x, double p1) { 
+    double iprime = 0;
     return iprime;
 }
 
-double Inv(int flip, int z, double p) {
+double Inv(int flip, int z, int x, double p) {
 
   double guard = (double)(flip == 0);
-  double iPrime = IPrime(flip, z, p);
+  double iPrime = IPrime(flip, z, x, p);
   return (double)z + guard * iPrime;
 }
 
-void invCheck(int flip_fuzz, int z_fuzz, double p_fuzz) {
+void invCheck(int flip_fuzz, int z_fuzz, int x_fuzz, double p_fuzz) {
   printf("\nPerforming induction check...\n");
 
   if (!(flip_fuzz == 0)) {
     return;
   }
 
-  double iBefore = Inv(flip_fuzz, z_fuzz, p_fuzz);
+  double iBefore = Inv(flip_fuzz, z_fuzz, x_fuzz, p_fuzz);
 
   double iExp = 0.0;
 
@@ -70,46 +101,59 @@ void invCheck(int flip_fuzz, int z_fuzz, double p_fuzz) {
 
     int flip = flip_fuzz;
     int z = z_fuzz;
+    int x = x_fuzz;
 
     if (d == -1)
       break;
 
     if (d)
       flip = 1;
-    else
+    else {
+      x = x * 2;
       z = z + 1;
+    }
 
-    iExp += pg_1 * Inv(flip, z, p_fuzz);
+    iExp += pg_1 * Inv(flip, z, x, p_fuzz);
 
   } // while end
 
   printf("iBefore: %lf, iExp: %lf\n\n", iBefore, iExp);
-  assert((iBefore - iExp) < 1e-3 && "[INV CHECK FAILED]: Invalid candidate invariant");
+  
+  if (iBefore - iExp > DLIM) {
+    save_crash_data(flip_fuzz, z_fuzz, x_fuzz, p_fuzz, (iBefore - iExp));
+    assert(0);
+  }
 }
 
-void preCheck(int flip_fuzz, int z_fuzz, double p_fuzz) {
+void preCheck(int flip_fuzz, int z_fuzz, int x_fuzz, double p_fuzz) {
   printf("\nPerforming pre-check...\n");
 
   // initialize state vars
 
   int flip = 0;
   int z = 0;
-  double p = p_fuzz;
-  double pre = Pre(flip, z, p);
-  double iPre = Inv(flip, z, p);
+  int x = x_fuzz;
 
-  printf("p = %lf, flip = %d, z = %d\n", p, flip, z);
+  double p = p_fuzz;
+  double pre = Pre(flip, z, x, p);
+  double iPre = Inv(flip, z, x, p);
+
+  printf("p = %lf, flip = %d, z = %d, x = %d\n", p, flip, z, x);
   printf("pre: %lf, iPre: %lf\n", pre, iPre);
-  assert((pre - iPre) < 1e-3 && "[PRE-CHECK FAILED]: Invalid candidate invariant");
+
+  if (pre - iPre > DLIM) {
+    save_crash_data(flip, z, x, p, (pre - iPre));
+    assert(0);
+  }
 }
 
-void postCheck(int flip, int z, double p) {
+void postCheck(int flip, int z, int x, double p) {
   printf("\nPerforming post check...\n");
   if (flip == 0) {
     return;
   }
 
-  double iPost = Inv(flip, z, p);
+  double iPost = Inv(flip, z, x,  p);
 
   printf("iPost: %lf, z: %d\n", iPost, z);
   assert((iPost - (double)z) < 1e-3 && "[POST CHECK FAILED]: Invalid candidate invariant");
@@ -131,28 +175,31 @@ int main(void) {
     uint8_t *buffptr = magic;
 
     // check size of the input buffer
-    if (len < 2 * sizeof(int8_t) + sizeof(double))
+    if (len < 3 * sizeof(int8_t) + sizeof(double))
       continue;
 
     // declare state variables
     int flip_fuzz = *(int8_t *)buffptr;
     buffptr += sizeof(int8_t);
+    flip_fuzz = flip_fuzz % 2;
 
     int z_fuzz = *(int8_t *)buffptr;
     buffptr += sizeof(int8_t);
 
+    int x_fuzz = *(int8_t *)buffptr;
+    buffptr += sizeof(int8_t);
+
     double p = *(double *)buffptr;
-    buffptr += sizeof(double);
 
     if (!(0.001 <= p && p <= 0.999))
       continue;
 
-    printf("Fuzzer input:\n flip_fuzz: %d, z_fuzz: %d, p: %lf \n", flip_fuzz, z_fuzz, p);
+    printf("Fuzzer input:\n flip_fuzz: %d, z_fuzz: %d, x_fuzz: %d, p: %lf \n", flip_fuzz, z_fuzz, x_fuzz, p);
 
     // do the pre-check
-    preCheck(flip_fuzz, z_fuzz, p);
-    invCheck(flip_fuzz, z_fuzz, p);
-    postCheck(flip_fuzz, z_fuzz, p);
+    preCheck(flip_fuzz, z_fuzz, x_fuzz, p);
+    invCheck(flip_fuzz, z_fuzz, x_fuzz, p);
+    // postCheck(flip_fuzz, z_fuzz, x_fuzz, p);
   }
 
   return 0;

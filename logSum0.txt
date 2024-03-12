@@ -1,0 +1,574 @@
+     Benchmark name: Sum0; Post-exp: x
+Exist generates the following set of features:
+     ['((p*n)+x)', '(x-n)', '(p*n)', '(n-x)', '(n-(p*n))', 'x', '((p*n)-n)', '((p*n)-(p*n*n))', '((p*n)+n)', '((p*n*n)-(p*n))', '(1-p)', '(x-(p*n))', '(p*n*n)', '((p*n*n)+x)', 'n', '(x-(p*n*n))', '(1+p)', '((p*n*n)-n)', 'p', '((p*n)-x)', '(n+x)', '((p*n)+(p*n*n))', '((p*n*n)-x)', '((p*n*n)+n)', '(n-(p*n*n))']
+     Start sampling Sum0
+     It takes 52.20354890823364 time to sample Sum0
+
+
+===== Iteration 0 =====
+
+INV : (1)*(p*n*n)+0
+for depth 0 and round 0 the invaraint is:
+ (1)*(p*n*n)+0
+C version:(1)*(p*n*n)+0
+INV : (0.5)*(p*n) + (0.5)*(p*n*n)+0.0
+for depth 0 and round 1 the invaraint is:
+ (0.5)*(p*n) + (0.5)*(p*n*n)+0.0
+C version:(0.5)*(p*n) + (0.5)*(p*n*n)+0.0
+INV : (0.5)*(p*n) + (0.5)*(p*n*n)+0.03
+for depth 0 and round 2 the invaraint is:
+ (0.5)*(p*n) + (0.5)*(p*n*n)+0.03
+C version:(0.5)*(p*n) + (0.5)*(p*n*n)+0.03
+INV : (0.4950000047683716)*(p*n) + (0.5009999871253967)*(p*n*n) + (-0.004999999888241291)*n + (-0.0020000000949949026)*x+0.028
+for depth 0 and round 3 the invaraint is:
+ (0.4950000047683716)*(p*n) + (0.5009999871253967)*(p*n*n) + (-0.004999999888241291)*n + (-0.0020000000949949026)*x+0.028
+C version:(0.4950000047683716)*(p*n) + (0.5009999871253967)*(p*n*n) + (-0.004999999888241291)*n + (-0.0020000000949949026)*x+0.028
+INV : [(p*n*n) <= 210.970 ]*((1)*(p*n*n)+0)+[(p*n*n) > 210.970 ]*((3)*(p*n) + (2)*n+-42)
+for depth 1 and round 0 the invaraint is:
+ [(p*n*n) <= 210.970 ]*((1)*(p*n*n)+0)+[(p*n*n) > 210.970 ]*((3)*(p*n) + (2)*n+-42)
+C version:(ltedbl((p*n*n), 210.970))*((1)*(p*n*n)+0)+(ltedbl((p*n*n), 210.970))*((3)*(p*n) + (2)*n+-42)
+INV : [(p*n*n) <= 210.970 ]*((0.5)*(p*n) + (0.5)*(p*n*n)+0.0)+[(p*n*n) > 210.970 ]*((3.299999952316284)*(p*n) + (0.30000001192092896)*(p*n*n) + (2.299999952316284)*n+-42.3)
+for depth 1 and round 1 the invaraint is:
+ [(p*n*n) <= 210.970 ]*((0.5)*(p*n) + (0.5)*(p*n*n)+0.0)+[(p*n*n) > 210.970 ]*((3.299999952316284)*(p*n) + (0.30000001192092896)*(p*n*n) + (2.299999952316284)*n+-42.3)
+C version:(ltedbl((p*n*n), 210.970))*((0.5)*(p*n) + (0.5)*(p*n*n)+0.0)+(ltedbl((p*n*n), 210.970))*((3.299999952316284)*(p*n) + (0.30000001192092896)*(p*n*n) + (2.299999952316284)*n+-42.3)
+INV : [(p*n*n) <= 210.970 ]*((0.5)*(p*n) + (0.5)*(p*n*n) + (-0.009999999776482582)*n+0.05)+[(p*n*n) > 210.970 ]*((3.319999933242798)*(p*n) + (0.3400000035762787)*(p*n*n) + (2.3299999237060547)*n + (0.019999999552965164)*x+-42.28)
+for depth 1 and round 2 the invaraint is:
+ [(p*n*n) <= 210.970 ]*((0.5)*(p*n) + (0.5)*(p*n*n) + (-0.009999999776482582)*n+0.05)+[(p*n*n) > 210.970 ]*((3.319999933242798)*(p*n) + (0.3400000035762787)*(p*n*n) + (2.3299999237060547)*n + (0.019999999552965164)*x+-42.28)
+C version:(ltedbl((p*n*n), 210.970))*((0.5)*(p*n) + (0.5)*(p*n*n) + (-0.009999999776482582)*n+0.05)+(ltedbl((p*n*n), 210.970))*((3.319999933242798)*(p*n) + (0.3400000035762787)*(p*n*n) + (2.3299999237060547)*n + (0.019999999552965164)*x+-42.28)
+INV : [(p*n*n) <= 210.970 ]*((0.5)*(p*n) + (0.5009999871253967)*(p*n*n) + (-0.007000000216066837)*n + (-0.003000000026077032)*x+0.046)+[(p*n*n) > 210.970 ]*((3.315000057220459)*(p*n) + (0.3449999988079071)*(p*n*n) + (2.3259999752044678)*n + (0.02199999988079071)*x+-42.275)
+for depth 1 and round 3 the invaraint is:
+ [(p*n*n) <= 210.970 ]*((0.5)*(p*n) + (0.5009999871253967)*(p*n*n) + (-0.007000000216066837)*n + (-0.003000000026077032)*x+0.046)+[(p*n*n) > 210.970 ]*((3.315000057220459)*(p*n) + (0.3449999988079071)*(p*n*n) + (2.3259999752044678)*n + (0.02199999988079071)*x+-42.275)
+C version:(ltedbl((p*n*n), 210.970))*((0.5)*(p*n) + (0.5009999871253967)*(p*n*n) + (-0.007000000216066837)*n + (-0.003000000026077032)*x+0.046)+(ltedbl((p*n*n), 210.970))*((3.315000057220459)*(p*n) + (0.3449999988079071)*(p*n*n) + (2.3259999752044678)*n + (0.02199999988079071)*x+-42.275)
+This is the returned exp: 1.3850668522907806e-195
+INV : (1-p)**-1 * p**1 * ((p*n)-(p*n*n))**-12 * ((p*n)-n)**-12 * (n-(p*n))**1 * ((p*n)+(p*n*n))**1*0
+This is the returned exp: 1.3850668522907806e-195
+for depth 0 and round 0 the invaraint is:
+ (1-p)**-1 * p**1 * ((p*n)-(p*n*n))**-12 * ((p*n)-n)**-12 * (n-(p*n))**1 * ((p*n)+(p*n*n))**1*0
+C version:(pow((1-p), -1)) * (pow(p, 1)) * (pow(((p*n)-(p*n*n)), -12)) * (pow(((p*n)-n), -12)) * (pow((n-(p*n)), 1)) * (pow(((p*n)+(p*n*n)), 1))*0
+WORKING IN LOGSPACE
+This is the returned exp: 140.7899932861328
+This is the returned exp: 0.2886961237273903
+This is the returned exp: 9.030941333487506e-158
+INV : [((p*n*n)-x) <= 140.790 ]*(((p*n)+(p*n*n))**1*0)+[((p*n*n)-x) > 140.790 ]*((1+p)**39 * (1-p)**40 * p**-26 * ((p*n)-(p*n*n))**-7 * ((p*n)-n)**-4 * ((p*n*n)-(p*n))**96 * ((p*n*n)-n)**41 * ((p*n*n)-x)**-1 * (n-(p*n))**-40 * (n-(p*n*n))**-4 * (x-(p*n*n))**-4 * ((p*n)+(p*n*n))**122 * ((p*n)+n)**-39 * ((p*n*n)+n)**55 * ((p*n*n)+x)**-2 * (p*n)**-102 * (p*n*n)**-181 * n**-76*0)
+WORKING IN LOGSPACE
+This is the returned exp: 140.7899932861328
+This is the returned exp: 0.2886961237273903
+This is the returned exp: 9.030941333487506e-158
+for depth 1 and round 0 the invaraint is:
+ [((p*n*n)-x) <= 140.790 ]*(((p*n)+(p*n*n))**1*0)+[((p*n*n)-x) > 140.790 ]*((1+p)**39 * (1-p)**40 * p**-26 * ((p*n)-(p*n*n))**-7 * ((p*n)-n)**-4 * ((p*n*n)-(p*n))**96 * ((p*n*n)-n)**41 * ((p*n*n)-x)**-1 * (n-(p*n))**-40 * (n-(p*n*n))**-4 * (x-(p*n*n))**-4 * ((p*n)+(p*n*n))**122 * ((p*n)+n)**-39 * ((p*n*n)+n)**55 * ((p*n*n)+x)**-2 * (p*n)**-102 * (p*n*n)**-181 * n**-76*0)
+C version:(ltedbl(((p*n*n)-x), 140.790))*((pow(((p*n)+(p*n*n)), 1))*0)+(ltedbl(((p*n*n)-x), 140.790))*((pow((1+p), 39)) * (pow((1-p), 40)) * (pow(p, -26)) * (pow(((p*n)-(p*n*n)), -7)) * (pow(((p*n)-n), -4)) * (pow(((p*n*n)-(p*n)), 96)) * (pow(((p*n*n)-n), 41)) * (pow(((p*n*n)-x), -1)) * (pow((n-(p*n)), -40)) * (pow((n-(p*n*n)), -4)) * (pow((x-(p*n*n)), -4)) * (pow(((p*n)+(p*n*n)), 122)) * (pow(((p*n)+n), -39)) * (pow(((p*n*n)+n), 55)) * (pow(((p*n*n)+x), -2)) * (pow((p*n), -102)) * (pow((p*n*n), -181)) * (pow(n, -76))*0)
+(1)*(p*n*n)+0
+(0.5)*(p*n) + (0.5)*(p*n*n)+0.0
+(0.5)*(p*n) + (0.5)*(p*n*n)+0.03
+(0.4950000047683716)*(p*n) + (0.5009999871253967)*(p*n*n) + (-0.004999999888241291)*n + (-0.0020000000949949026)*x+0.028
+[(p*n*n) <= 210.970 ]*((1)*(p*n*n)+0)+[(p*n*n) > 210.970 ]*((3)*(p*n) + (2)*n+-42)
+[(p*n*n) <= 210.970 ]*((0.5)*(p*n) + (0.5)*(p*n*n)+0.0)+[(p*n*n) > 210.970 ]*((3.299999952316284)*(p*n) + (0.30000001192092896)*(p*n*n) + (2.299999952316284)*n+-42.3)
+[(p*n*n) <= 210.970 ]*((0.5)*(p*n) + (0.5)*(p*n*n) + (-0.009999999776482582)*n+0.05)+[(p*n*n) > 210.970 ]*((3.319999933242798)*(p*n) + (0.3400000035762787)*(p*n*n) + (2.3299999237060547)*n + (0.019999999552965164)*x+-42.28)
+[(p*n*n) <= 210.970 ]*((0.5)*(p*n) + (0.5009999871253967)*(p*n*n) + (-0.007000000216066837)*n + (-0.003000000026077032)*x+0.046)+[(p*n*n) > 210.970 ]*((3.315000057220459)*(p*n) + (0.3449999988079071)*(p*n*n) + (2.3259999752044678)*n + (0.02199999988079071)*x+-42.275)
+(1-p)**-1 * p**1 * ((p*n)-(p*n*n))**-12 * ((p*n)-n)**-12 * (n-(p*n))**1 * ((p*n)+(p*n*n))**1*0
+[((p*n*n)-x) <= 140.790 ]*(((p*n)+(p*n*n))**1*0)+[((p*n*n)-x) > 140.790 ]*((1+p)**39 * (1-p)**40 * p**-26 * ((p*n)-(p*n*n))**-7 * ((p*n)-n)**-4 * ((p*n*n)-(p*n))**96 * ((p*n*n)-n)**41 * ((p*n*n)-x)**-1 * (n-(p*n))**-40 * (n-(p*n*n))**-4 * (x-(p*n*n))**-4 * ((p*n)+(p*n*n))**122 * ((p*n)+n)**-39 * ((p*n*n)+n)**55 * ((p*n*n)+x)**-2 * (p*n)**-102 * (p*n*n)**-181 * n**-76*0)
+Trying to verify (1)*(p*n*n)+0
+Trying to verify C expression (1)*(p*n*n)+0
+Term list: ['*(1)*(p*n*n)+0']
+*(1)*(p*n*n)+0
+2
+(1)*(p*n*n)
+True
+(True)
+This is the C expression function gives: pow(n,2)*p
+[92mGenerating C code for current invariant...[00m
+[92mCandidate expression: pow(n,2)*p[00m
+<codegen.Codegen object at 0x7f1a2d0b21d0>
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+[92mCompilation successful[00m
+[92mStarting fuzzing...[00m
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000001,time:1936,execs:193566,op:havoc,rep:16[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '12', 'n': '12', 'p': '0.022059', 'diff': '0.242647'}[00m
+[95mNew delim: 1.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000002,time:4570,execs:490907,op:havoc,rep:3[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '0', 'n': '5', 'p': '0.286338', 'diff': '1.145350'}[00m
+[95mNew delim: 2.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000002,time:1229,execs:116084,op:flip1,pos:1[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '0', 'n': '16', 'p': '0.691162', 'diff': '10.367432'}[00m
+[95mNew delim: 11.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000002,time:493,execs:38821,op:flip1,pos:1[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '2', 'n': '17', 'p': '0.752303', 'diff': '12.036850'}[00m
+[95mNew delim: 13.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000003,time:4117,execs:401848,op:flip4,pos:8[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '0', 'n': '22', 'p': '0.757599', 'diff': '15.909569'}[00m
+[95mNew delim: 17.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000003,time:4043,execs:406178,op:havoc,rep:3[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '16', 'n': '22', 'p': '0.820221', 'diff': '17.224639'}[00m
+[95mNew delim: 18.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000001+000002,time:2203,execs:217623,op:splice,rep:1[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '0', 'n': '24', 'p': '0.935294', 'diff': '21.511765'}[00m
+[95mNew delim: 23.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000002,time:18480,execs:1970212,op:havoc,rep:4[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '1', 'n': '25', 'p': '0.959989', 'diff': '23.039732'}[00m
+[95mNew delim: 24.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+Timeout occurred, no crash found
+[91mCrash not found[00m
+[91mCould not find a crash. Exiting...[00m
+[91mCEX found: [{'x': 12, 'n': 12, 'p': 0.022059}, {'x': 0, 'n': 5, 'p': 0.286338}, {'x': 0, 'n': 16, 'p': 0.691162}, {'x': 2, 'n': 17, 'p': 0.752303}, {'x': 0, 'n': 22, 'p': 0.757599}, {'x': 16, 'n': 22, 'p': 0.820221}, {'x': 0, 'n': 24, 'p': 0.935294}, {'x': 1, 'n': 25, 'p': 0.959989}][00m
+[91mInvariant is not valid.[00m
+Trying to verify (1-p)**-1 * p**1 * ((p*n)-(p*n*n))**-12 * ((p*n)-n)**-12 * (n-(p*n))**1 * ((p*n)+(p*n*n))**1*0
+Trying to verify C expression (pow((1-p), -1)) * (pow(p, 1)) * (pow(((p*n)-(p*n*n)), -12)) * (pow(((p*n)-n), -12)) * (pow((n-(p*n)), 1)) * (pow(((p*n)+(p*n*n)), 1))*0
+Term list: ['*(1-p)**-1 * p**1 * ((p*n)-(p*n*n))**-12 * ((p*n)-n)**-12 * (n-(p*n))**1 * ((p*n)+(p*n*n))**1*0']
+*(1-p)**-1 * p**1 * ((p*n)-(p*n*n))**-12 * ((p*n)-n)**-12 * (n-(p*n))**1 * ((p*n)+(p*n*n))**1*0
+1
+(1-p)**-1 * p**1 * ((p*n)-(p*n*n))**-12 * ((p*n)-n)**-12 * (n-(p*n))**1 * ((p*n)+(p*n*n))**1*0
+True
+(True)
+This is the C expression function gives: 0
+[92mGenerating C code for current invariant...[00m
+[92mCandidate expression: 0[00m
+<codegen.Codegen object at 0x7f1a2d7853d0>
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+[92mCompilation successful[00m
+[92mStarting fuzzing...[00m
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000001,time:546,execs:42105,op:havoc,rep:7[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '0', 'n': '2', 'p': '0.162255', 'diff': '0.486765'}[00m
+[95mNew delim: 1.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000001,time:1285,execs:124608,op:havoc,rep:16[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '0', 'n': '5', 'p': '0.117187', 'diff': '1.757812'}[00m
+[95mNew delim: 3.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000002,time:878,execs:79459,op:flip1,pos:1[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '0', 'n': '16', 'p': '0.903931', 'diff': '122.934570'}[00m
+[95mNew delim: 124.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000002,time:506,execs:40745,op:flip2,pos:1[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '0', 'n': '24', 'p': '0.875000', 'diff': '262.500000'}[00m
+[95mNew delim: 263.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000003,time:29950,execs:3175723,op:havoc,rep:5[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '0', 'n': '24', 'p': '0.968872', 'diff': '290.661621'}[00m
+[95mNew delim: 292.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000003,time:22991,execs:2460009,op:havoc,rep:5[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '0', 'n': '25', 'p': '0.988241', 'diff': '321.178344'}[00m
+[95mNew delim: 322.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+Timeout occurred, no crash found
+[91mCrash not found[00m
+[91mCould not find a crash. Exiting...[00m
+[91mCEX found: [{'x': 0, 'n': 2, 'p': 0.162255}, {'x': 0, 'n': 5, 'p': 0.117187}, {'x': 0, 'n': 16, 'p': 0.903931}, {'x': 0, 'n': 24, 'p': 0.875}, {'x': 0, 'n': 24, 'p': 0.968872}, {'x': 0, 'n': 25, 'p': 0.988241}][00m
+[91mInvariant is not valid.[00m
+Trying to verify [((p*n*n)-x) <= 140.790 ]*(((p*n)+(p*n*n))**1*0)+[((p*n*n)-x) > 140.790 ]*((1+p)**39 * (1-p)**40 * p**-26 * ((p*n)-(p*n*n))**-7 * ((p*n)-n)**-4 * ((p*n*n)-(p*n))**96 * ((p*n*n)-n)**41 * ((p*n*n)-x)**-1 * (n-(p*n))**-40 * (n-(p*n*n))**-4 * (x-(p*n*n))**-4 * ((p*n)+(p*n*n))**122 * ((p*n)+n)**-39 * ((p*n*n)+n)**55 * ((p*n*n)+x)**-2 * (p*n)**-102 * (p*n*n)**-181 * n**-76*0)
+Trying to verify C expression (ltedbl(((p*n*n)-x), 140.790))*((pow(((p*n)+(p*n*n)), 1))*0)+(ltedbl(((p*n*n)-x), 140.790))*((pow((1+p), 39)) * (pow((1-p), 40)) * (pow(p, -26)) * (pow(((p*n)-(p*n*n)), -7)) * (pow(((p*n)-n), -4)) * (pow(((p*n*n)-(p*n)), 96)) * (pow(((p*n*n)-n), 41)) * (pow(((p*n*n)-x), -1)) * (pow((n-(p*n)), -40)) * (pow((n-(p*n*n)), -4)) * (pow((x-(p*n*n)), -4)) * (pow(((p*n)+(p*n*n)), 122)) * (pow(((p*n)+n), -39)) * (pow(((p*n*n)+n), 55)) * (pow(((p*n*n)+x), -2)) * (pow((p*n), -102)) * (pow((p*n*n), -181)) * (pow(n, -76))*0)
+Term list: ['((p*n*n)-x) <= 140.790 ', '*(((p*n)+(p*n*n))**1*0)+', '((p*n*n)-x) > 140.790 ', '*((1+p)**39 * (1-p)**40 * p**-26 * ((p*n)-(p*n*n))**-7 * ((p*n)-n)**-4 * ((p*n*n)-(p*n))**96 * ((p*n*n)-n)**41 * ((p*n*n)-x)**-1 * (n-(p*n))**-40 * (n-(p*n*n))**-4 * (x-(p*n*n))**-4 * ((p*n)+(p*n*n))**122 * ((p*n)+n)**-39 * ((p*n*n)+n)**55 * ((p*n*n)+x)**-2 * (p*n)**-102 * (p*n*n)**-181 * n**-76*0)']
+((p*n*n)-x) <= 140.790
+((p*n*n)-x) <= 140.790
+*(((p*n)+(p*n*n))**1*0)+
+1
+(((p*n)+(p*n*n))**1*0)
+((p*n*n)-x) > 140.790
+((p*n*n)-x) > 140.790
+*((1+p)**39 * (1-p)**40 * p**-26 * ((p*n)-(p*n*n))**-7 * ((p*n)-n)**-4 * ((p*n*n)-(p*n))**96 * ((p*n*n)-n)**41 * ((p*n*n)-x)**-1 * (n-(p*n))**-40 * (n-(p*n*n))**-4 * (x-(p*n*n))**-4 * ((p*n)+(p*n*n))**122 * ((p*n)+n)**-39 * ((p*n*n)+n)**55 * ((p*n*n)+x)**-2 * (p*n)**-102 * (p*n*n)**-181 * n**-76*0)
+1
+((1+p)**39 * (1-p)**40 * p**-26 * ((p*n)-(p*n*n))**-7 * ((p*n)-n)**-4 * ((p*n*n)-(p*n))**96 * ((p*n*n)-n)**41 * ((p*n*n)-x)**-1 * (n-(p*n))**-40 * (n-(p*n*n))**-4 * (x-(p*n*n))**-4 * ((p*n)+(p*n*n))**122 * ((p*n)+n)**-39 * ((p*n*n)+n)**55 * ((p*n*n)+x)**-2 * (p*n)**-102 * (p*n*n)**-181 * n**-76*0)
+True
+(True)
+This is the C expression function gives: 0
+[92mGenerating C code for current invariant...[00m
+[92mCandidate expression: 0[00m
+<codegen.Codegen object at 0x7f1a2d106190>
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+[92mCompilation successful[00m
+[92mStarting fuzzing...[00m
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000001,time:1314,execs:134910,op:havoc,rep:58[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '16', 'n': '16', 'p': '0.193627', 'diff': '26.333327'}[00m
+[95mNew delim: 27.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000001+000002,time:461,execs:35066,op:splice,rep:1[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '3', 'n': '14', 'p': '0.531129', 'diff': '55.768595'}[00m
+[95mNew delim: 57.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000001,time:1508,execs:149472,op:havoc,rep:23[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '16', 'n': '20', 'p': '0.375000', 'diff': '78.750000'}[00m
+[95mNew delim: 80.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000002,time:6935,execs:747003,op:flip1,pos:1[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '0', 'n': '16', 'p': '0.924988', 'diff': '125.798307'}[00m
+[95mNew delim: 127.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000003,time:3311,execs:347481,op:havoc,rep:7[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '0', 'n': '16', 'p': '0.943634', 'diff': '128.334204'}[00m
+[95mNew delim: 129.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000003+000002,time:5306,execs:546846,op:splice,rep:6[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '0', 'n': '19', 'p': '0.757721', 'diff': '143.966903'}[00m
+[95mNew delim: 145.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000001,time:2073,execs:209916,op:havoc,rep:31[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '0', 'n': '20', 'p': '0.899048', 'diff': '188.800055'}[00m
+[95mNew delim: 190.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000003,time:3889,execs:403131,op:flip2,pos:1[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '0', 'n': '24', 'p': '0.781985', 'diff': '234.595588'}[00m
+[95mNew delim: 236.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000002,time:51175,execs:5486439,op:havoc,rep:2[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '11', 'n': '25', 'p': '0.757755', 'diff': '246.270519'}[00m
+[95mNew delim: 247.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000002,time:58153,execs:6329298,op:havoc,rep:4[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '15', 'n': '25', 'p': '0.796295', 'diff': '258.795891'}[00m
+[95mNew delim: 260.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000003,time:2588,execs:258080,op:havoc,rep:4[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '0', 'n': '24', 'p': '0.882724', 'diff': '264.817259'}[00m
+[95mNew delim: 266.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000002,time:4421,execs:469763,op:flip2,pos:1[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '20', 'n': '24', 'p': '0.940002', 'diff': '282.000625'}[00m
+[95mNew delim: 283.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000003,time:1440,execs:143909,op:havoc,rep:2[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '0', 'n': '25', 'p': '0.972656', 'diff': '316.113287'}[00m
+[95mNew delim: 317.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+Timeout occurred, no crash found
+[91mCrash not found[00m
+[91mCould not find a crash. Exiting...[00m
+[91mCEX found: [{'x': 16, 'n': 16, 'p': 0.193627}, {'x': 3, 'n': 14, 'p': 0.531129}, {'x': 16, 'n': 20, 'p': 0.375}, {'x': 0, 'n': 16, 'p': 0.924988}, {'x': 0, 'n': 16, 'p': 0.943634}, {'x': 0, 'n': 19, 'p': 0.757721}, {'x': 0, 'n': 20, 'p': 0.899048}, {'x': 0, 'n': 24, 'p': 0.781985}, {'x': 11, 'n': 25, 'p': 0.757755}, {'x': 15, 'n': 25, 'p': 0.796295}, {'x': 0, 'n': 24, 'p': 0.882724}, {'x': 20, 'n': 24, 'p': 0.940002}, {'x': 0, 'n': 25, 'p': 0.972656}][00m
+[91mInvariant is not valid.[00m
+Trying to verify [(p*n*n) <= 210.970 ]*((1)*(p*n*n)+0)+[(p*n*n) > 210.970 ]*((3)*(p*n) + (2)*n+-42)
+Trying to verify C expression (ltedbl((p*n*n), 210.970))*((1)*(p*n*n)+0)+(ltedbl((p*n*n), 210.970))*((3)*(p*n) + (2)*n+-42)
+Term list: ['(p*n*n) <= 210.970 ', '*((1)*(p*n*n)+0)+', '(p*n*n) > 210.970 ', '*((3)*(p*n) + (2)*n+-42)']
+(p*n*n) <= 210.970
+(p*n*n) <= 210.970
+*((1)*(p*n*n)+0)+
+1
+((1)*(p*n*n)+0)
+(p*n*n) > 210.970
+(p*n*n) > 210.970
+*((3)*(p*n) + (2)*n+-42)
+1
+((3)*(p*n) + (2)*n+-42)
+n**2*p <= 210.97
+(pow(n,2)*p) <= (210.97)
+n**2*p > 210.97
+(pow(n,2)*p) > (210.97)
+This is the C expression function gives: (ltedbl((pow(n,2)*p), (210.97)))*(pow(n,2)*p)+(gtdbl((pow(n,2)*p), (210.97)))*(3*n*p+2*n-42)
+[92mGenerating C code for current invariant...[00m
+[92mCandidate expression: (ltedbl((pow(n,2)*p), (210.97)))*(pow(n,2)*p)+(gtdbl((pow(n,2)*p), (210.97)))*(3*n*p+2*n-42)[00m
+<codegen.Codegen object at 0x7f1a2d0b21d0>
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+[92mCompilation successful[00m
+[92mStarting fuzzing...[00m
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000001,time:2058,execs:202836,op:havoc,rep:53[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '0', 'n': '9', 'p': '0.028317', 'diff': '0.226532'}[00m
+[95mNew delim: 1.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000001,time:2503,execs:225642,op:havoc,rep:61[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '9', 'n': '9', 'p': '0.148437', 'diff': '1.187495'}[00m
+[95mNew delim: 2.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000003,time:378,execs:27704,op:flip1,pos:8[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '4', 'n': '4', 'p': '0.864706', 'diff': '2.594118'}[00m
+[95mNew delim: 4.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000001,sig:06,src:000002,time:564,execs:32295,op:flip1,pos:1[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '0', 'n': '8', 'p': '0.841064', 'diff': '5.887451'}[00m
+[95mNew delim: 7.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000001+000003,time:420,execs:31743,op:splice,rep:6[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '0', 'n': '16', 'p': '0.602609', 'diff': '9.039137'}[00m
+[95mNew delim: 10.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000000,time:3701,execs:374385,op:havoc,rep:53[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '0', 'n': '16', 'p': '0.843628', 'diff': '84.239260'}[00m
+[95mNew delim: 85.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000003,time:1236,execs:119543,op:havoc,rep:2[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '0', 'n': '16', 'p': '0.872555', 'diff': '86.784873'}[00m
+[95mNew delim: 88.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000002,time:871,execs:83369,op:havoc,rep:25[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '0', 'n': '17', 'p': '0.921845', 'diff': '102.028174'}[00m
+[95mNew delim: 103.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000002,time:790,execs:73139,op:flip2,pos:1[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '1', 'n': '24', 'p': '0.807600', 'diff': '178.132847'}[00m
+[95mNew delim: 179.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000002,time:2670,execs:274893,op:havoc,rep:6[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '16', 'n': '24', 'p': '0.812439', 'diff': '179.236019'}[00m
+[95mNew delim: 180.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000002,time:1806,execs:181296,op:havoc,rep:12[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '0', 'n': '23', 'p': '0.945260', 'diff': '191.668854'}[00m
+[95mNew delim: 193.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000002,time:6000,execs:637695,op:havoc,rep:4[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '19', 'n': '25', 'p': '0.812378', 'diff': '195.094482'}[00m
+[95mNew delim: 196.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+fuzzer exit code:  0
+[91mFound a crash![00m
+[92mCrashing input: id:000000,sig:06,src:000002,time:8866,execs:951600,op:havoc,rep:43[00m
+[92mValidating crashing input...[00m
+[92mCrash info: {'x': '1', 'n': '24', 'p': '0.968750', 'diff': '214.875000'}[00m
+[95mNew delim: 216.0[00m
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+Timeout occurred, no crash found
+[91mCrash not found[00m
+[91mCould not find a crash. Exiting...[00m
+[91mCEX found: [{'x': 0, 'n': 9, 'p': 0.028317}, {'x': 9, 'n': 9, 'p': 0.148437}, {'x': 4, 'n': 4, 'p': 0.864706}, {'x': 0, 'n': 8, 'p': 0.841064}, {'x': 0, 'n': 16, 'p': 0.602609}, {'x': 0, 'n': 16, 'p': 0.843628}, {'x': 0, 'n': 16, 'p': 0.872555}, {'x': 0, 'n': 17, 'p': 0.921845}, {'x': 1, 'n': 24, 'p': 0.8076}, {'x': 16, 'n': 24, 'p': 0.812439}, {'x': 0, 'n': 23, 'p': 0.94526}, {'x': 19, 'n': 25, 'p': 0.812378}, {'x': 1, 'n': 24, 'p': 0.96875}][00m
+[91mInvariant is not valid.[00m
+Trying to verify (0.5)*(p*n) + (0.5)*(p*n*n)+0.0
+Trying to verify C expression (0.5)*(p*n) + (0.5)*(p*n*n)+0.0
+Term list: ['*(0.5)*(p*n) + (0.5)*(p*n*n)+0.0']
+*(0.5)*(p*n) + (0.5)*(p*n*n)+0.0
+3
+(0.5)*(p*n)
+True
+(True)
+True
+(True)
+This is the C expression function gives: 0.5*n*p+0.5*pow(n,2)*p
+[92mGenerating C code for current invariant...[00m
+[92mCandidate expression: 0.5*n*p+0.5*pow(n,2)*p[00m
+<codegen.Codegen object at 0x7f1a2d39ba10>
+[92mTarget C template: c_template/sum0.c.in[00m
+Compilation successful. Output binary: target.exe
+[92mCompilation successful[00m
+[92mStarting fuzzing...[00m
+Executing command:  /home/devesh/Desktop/AFLplusplus/afl-fuzz -i indir -o outdir -D -- ./target.exe
+Timeout occurred, no crash found
+[91mCrash not found[00m
+[91mTimeout occurred. Exiting...[00m
+True ('(0.5)*(p*n) + (0.5)*(p*n*n)+0.0', 0.5275091528892517)
+For Sum0: we get x + [n > 0] * (0.5)*(p*n) + (0.5)*(p*n*n)+0.0
+

@@ -54,9 +54,9 @@ def generate_c_expr(pyterms):
     c_expr=""
     # define some basic operand expressions
     number = Regex(r'\d+(\.\d*)?([Ee][+-]?\d+)?')
-    ident = Word(alphas+'', alphanums+'')
+    ident = Word(alphas+'_', alphanums+'_')
 
-    # forward declare our overall expression, since a slice could 
+    # forward declare our overall expression, since a slice could
     # contain an arithmetic expression
     expr = Forward()
     slice_ref = '[' + expr + ']'
@@ -99,10 +99,14 @@ def generate_c_expr(pyterms):
     # now assign into forward-declared expr
     expr <<= arith_expr.setParseAction(lambda t: '(%s)' % ''.join(t))
 
-        
+       
     for i in range(len(pyterms)):
         xform = expr.transformString(str(pyterms[i][1]))[1:-1]
-        check=str(pyterms[i][0])
+        xform1 = expr.transformString(str(pyterms[i][0]))
+        print(pyterms[i][0])
+        print(xform1)
+        # check=str(xform1)
+        check=str(xform1)
         count=-1
         exp=''
         a=''
@@ -156,11 +160,12 @@ def generate_c_expr(pyterms):
             s=f"gtdbl({a}, {b})"
 
 
-        if s != "": s="["+s+"]"+"*"+xform
+        if s != "": s="("+s+")"+"*("+xform+")"
         else: s=xform
         # print(str)
         if(i==0): c_expr=s
         else: c_expr=c_expr+"+"+s
+    print(f"This is the C expression function gives: {c_expr}")
     return c_expr
 
 
@@ -183,7 +188,7 @@ def evaluate_expression_with_guard(expression):
     if terms[0]!='':
         # This implies starting expression does not have a guard
         terms[0]='*'+terms[0]
-        guard_expression="1==1"
+        guard_expression=True
     else: terms=terms[1:]
     # terms=terms[1:]
     print("Term list: {}".format(terms))
@@ -196,8 +201,19 @@ def evaluate_expression_with_guard(expression):
             print(f'{guard_part}')
 
             # Parse the guard expression
-            guard_expression = sympify(guard_part)
-            print(f'guard: {guard_expression}')
+
+            if '==' in guard_part:
+                lhs, rhs = guard_part.split('==')
+                guard_expression=guard_part
+            elif '!=' in guard_part:
+                lhs, rhs = guard_part.split('!=')
+                guard_expression=guard_part
+            else:
+                guard_expression= sympify(guard_part)
+
+
+            # guard_expression = sympify(guard_part)
+            # print(f'guard: {guard_expression}')
 
         else:
             l = []
@@ -240,7 +256,8 @@ def evaluate_expression_with_guard(expression):
                     main_expression = sympify(main_part)  
                     if main_expression == 0: continue
                     pyterms.append((True, main_expression))          
-        
+    if len(pyterms)==0:
+        pyterms.append((True,0))
     return pyterms
 
 
@@ -266,7 +283,8 @@ class Verifier:
     def __init__(self, invariant, invariant_c, assumed_shape, task, session, config) -> None:
         self.invexpr = invariant
         #self.invexpr_c = invariant_c
-        self.invexpr_c = generate_c_expr(evaluate_expression_with_guard(invariant_c))
+        self.invexpr_c = generate_c_expr(evaluate_expression_with_guard(invariant))
+        #self.invexpr_c = generate_c_expr(evaluate_expression_with_guard(invariant_c))
         self.config = config
         invariant = invariant.replace("**", "^")
         self.inv = invariant
@@ -318,6 +336,8 @@ class Verifier:
         # print(f"Invariang expression: {self.invexpr}")
         codegen.print_green("Generating C code for current invariant...")
         cgen = codegen.Codegen(self.invexpr_c, self.config)
+        #cgen=self.invexpr_c
+        print(cgen)
         # cgen.gen_c_code()
         # cgen.clang_format()
         
