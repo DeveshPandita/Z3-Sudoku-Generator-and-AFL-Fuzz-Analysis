@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#define DLIM 1e-3
+#define DLIM @DELIM_VALUE@
 
 int eqdbl(double a, double b) { return fabs(a - b) < DLIM; }
 int neqdbl(double a, double b) { return !eqdbl(a, b); }

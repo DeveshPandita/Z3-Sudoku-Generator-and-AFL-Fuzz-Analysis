@@ -1,0 +1,4 @@
+outdir/
+*.log
+generated_data/*
+target.c
