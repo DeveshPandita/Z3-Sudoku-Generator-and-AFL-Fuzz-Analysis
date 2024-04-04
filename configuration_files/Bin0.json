@@ -16,5 +16,14 @@
             "p * n * y"
         ],
         "post": "x"
+    },
+    "cgen": {
+        "probs" : ["p1"],
+        "vars" : "{'x' : 'int', 'y' : 'int', 'n' : 'int', 'p': 'double'}",
+        "guard": ,
+        "loopbody": ,
+        "pre": ,
+        "post": ,
+	    "template": "c_template/bin0.c.in"
     }
 }
