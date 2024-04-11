@@ -40,7 +40,7 @@ void save_crash_data(int x, int y, int n, double p, double diff) {
   FILE *fp = fopen("crashing_data.csv", "w");
   fprintf(fp, "x,%d\n", x);
   fprintf(fp, "y,%d\n", y);
-  fprintf(fp, "n,%lf\n", n);  
+  fprintf(fp, "n,%d\n", n);  
   fprintf(fp, "p,%lf\n", p);
   fprintf(fp, "diff,%lf\n", diff);
   fclose(fp);
