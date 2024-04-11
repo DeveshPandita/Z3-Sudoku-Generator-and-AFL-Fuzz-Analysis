@@ -35,14 +35,25 @@ pd_t binomial(double p, int i) {
   return pd;
 }
 
+
+void save_crash_data(int x, int y, int n, double p, double diff) {
+  FILE *fp = fopen("crashing_data.csv", "w");
+  fprintf(fp, "x,%d\n", x);
+  fprintf(fp, "y,%d\n", y);
+  fprintf(fp, "n,%lf\n", n);  
+  fprintf(fp, "p,%lf\n", p);
+  fprintf(fp, "diff,%lf\n", diff);
+  fclose(fp);
+}
+
 double Pre(int x, int y, int n, int p) {
-  // [y != 0.000 ]*((p)**(1) * (n)**(1) * (y)**(1)*1) --evals-to--> [y != 0.000]*n*p*y
-    double iprime = @EXIST_EXPRESSION@;
-    return iprime;
+  return (0.5 * n * y - 0.3 * n + 106.2 * p - 0.4 * x - 53.4);
 }
 
 double IPrime(int x, int y, int n, int p) {
-  return (0.5 * n * y - 0.3 * n + 106.2 * p - 0.4 * x - 53.4);
+    // [y != 0.000 ]*((p)**(1) * (n)**(1) * (y)**(1)*1) --evals-to--> [y != 0.000]*n*p*y
+    double iprime = @EXIST_EXPRESSION@;
+    return iprime;
 }
 
 double Inv(int x, int y, int n, int p) {
@@ -87,7 +98,10 @@ void invCheck(int x_fuzz, int y_fuzz, int n_fuzz, double p_fuzz) {
   } // while end
 
   printf("iBefore: %lf, iExp: %lf\n\n", iBefore, iExp);
-  assert((iBefore - iExp) < 1e-3 && "[INV CHECK FAILED]: Invalid candidate invariant");
+  if (iBefore - iExp > DLIM) {
+    save_crash_data(x_fuzz, y_fuzz, n_fuzz, p_fuzz, iBefore - iExp);
+    assert(0);
+  }
 }
 
 void preCheck(int x_fuzz, int y_fuzz, int n_fuzz, int p_fuzz) {
@@ -107,7 +121,12 @@ void preCheck(int x_fuzz, int y_fuzz, int n_fuzz, int p_fuzz) {
 
   printf("p = %lf, x = %d, y = %d, n = %d\n", p, x, y, n);
   printf("pre: %lf, iPre: %lf\n", pre, iPre);
-  assert((pre - iPre) < 1e-3 && "[PRE-CHECK FAILED]: Invalid candidate invariant");
+  // assert((pre - iPre) < 1e-3 && "[PRE-CHECK FAILED]: Invalid candidate invariant");
+
+  if (pre - iPre > DLIM) {
+    save_crash_data(x_fuzz, y_fuzz, n_fuzz, p_fuzz, pre - iPre);
+    assert(0);
+  }
 }
 
 void postCheck(int x, int y, int n, int p) {
@@ -119,7 +138,11 @@ void postCheck(int x, int y, int n, int p) {
   double iPost = Inv(x, y, n, p);
 
   printf("iPost: %lf, z: %d\n", iPost, x);
-  assert(ltdbl(iPost, (double)x) && "[POST CHECK FAILED]: Invalid candidate invariant");
+  // assert(ltdbl(iPost, (double)x) && "[POST CHECK FAILED]: Invalid candidate invariant");
+  if (iPost - (double)x > DLIM) {
+    save_crash_data(x, y, n, p, iPost - (double)x);
+    assert(0);
+  }
 }
 
 
