@@ -13,5 +13,14 @@
         "loopbody": "x=0[p1]{x=-1[p2]x=1}",
         "post": "[x==1] * 1",
         "pre": ["[x==1] * 1"]
+    },
+    "cgen": {
+        "probs" : ["p1", "p2"],
+        "vars" : "{'x' : 'int', 'p1' : 'double', 'p2' : 'double'}",
+        "guard": "x == 0",
+        "loopbody": "",
+        "pre": "1",
+        "post": "1",
+	    "template":"c_template/prinsys.c.in"
     }
 }

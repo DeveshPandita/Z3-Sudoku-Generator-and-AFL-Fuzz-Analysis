@@ -39,6 +39,19 @@ pd_t binomial(double p, int i) {
   return pd;
 }
 
+
+
+void save_crash_data(int c, int b, int round, double p, double diff) {
+  FILE *fp = fopen("crashing_data.csv", "w");
+  fprintf(fp, "c,%d\n", c);
+  fprintf(fp, "b,%d\n", b);
+  fprintf(fp, "round,%d\n", round);  
+  fprintf(fp, "p,%lf\n", p);
+  fprintf(fp, "diff,%lf\n", diff);
+  fclose(fp);
+}
+
+
 double Pre(double p) { return 1.0 / p; }
 
 double Inv(int c, int b, int round, double p) {
@@ -62,7 +75,12 @@ void preCheck(int c_fuzz, int b_fuzz, int round_fuzz, double p_fuzz) {
   double iPre = Inv(c, b, round, p);
 
   printf("pre: %lf, iPre: %lf\n", pre, iPre);
-  assert((pre - iPre) < 1e-3 && "[PRE-CHECK FAILED]: Invalid candidate invariant");
+  // assert((pre - iPre) < 1e-3 && "[PRE-CHECK FAILED]: Invalid candidate invariant");
+  
+  if (pre - iPre > DLIM) {
+    save_crash_data(c_fuzz, b_fuzz, round_fuzz, p_fuzz, pre - iPre);
+    assert(0);
+  }
 }
 
 void invCheck(int c_fuzz, int b_fuzz, int round_fuzz, double p_fuzz) {
@@ -113,7 +131,12 @@ void invCheck(int c_fuzz, int b_fuzz, int round_fuzz, double p_fuzz) {
 
 
   printf("iBefore: %lf, iExp: %lf\n", iBefore, iExp);
-  assert((iBefore - iExp) < 1e-3 && "[INV CHECK FAILED]: Invalid candidate invariant");
+  // assert((iBefore - iExp) < 1e-3 && "[INV CHECK FAILED]: Invalid candidate invariant");
+ 
+  if (iBefore - iExp > DLIM) {
+    save_crash_data(c_fuzz, b_fuzz, round_fuzz, p_fuzz, iBefore - iExp);
+    assert(0);
+  }
 }
 
 void postCheck(int c, int b, int round, double p) {

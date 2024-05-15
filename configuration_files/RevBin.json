@@ -13,5 +13,14 @@
         "loopbody": "x=x-1[p]skip;z=z+1",
         "pre": ["[x > 0] * (x) + z", "z:q"],
         "post": "z"
+    },
+    "cgen": {
+        "probs" : ["p"],
+        "vars" : "{'x' : 'int', 'z' : 'int'}",
+        "guard": "x > 0",
+        "loopbody": "",
+        "pre": "",
+        "post": "z",
+	    "template":"c_template/revbin.c.in"
     }
 }

@@ -43,6 +43,16 @@ pd_t binomial(double p, int i)
   return pd;
 }
 
+void save_crash_data(int x, int y, int z, double p, double diff) {
+  FILE *fp = fopen("crashing_data.csv", "w");
+  fprintf(fp, "x,%d\n", x);
+  fprintf(fp, "y,%d\n", y);
+  fprintf(fp, "z,%d\n", z);  
+  fprintf(fp, "p,%lf\n", p);
+  fprintf(fp, "diff,%lf\n", diff);
+  fclose(fp);
+}
+
 double Pre(int x, int y, int z, double p) { return x * (y - x); }
 
 double IPrime(int x, int y, int z, double p)
@@ -75,8 +85,12 @@ void preCheck(int x_fuzz, int y_fuzz, int z_fuzz, double p_fuzz)
   double iPre = Inv(x_i, y_i, z_i, p_fuzz);
 
   printf("pre: %lf, iPre: %lf\n", pre, iPre);
-  assert(ltedbl(pre, iPre)
-         && "[PRE-CHECK FAILED]: Invalid candidate invariant");
+  //assert(ltedbl(pre, iPre)
+         //&& "[PRE-CHECK FAILED]: Invalid candidate invariant");
+  if (pre - iPre > DLIM) {
+    save_crash_data(x_fuzz, y_fuzz, z_fuzz, p_fuzz, pre - iPre);
+    assert(0);
+  }
 }
 
 void postCheck(int x, int y, int z, double p)
@@ -129,8 +143,12 @@ void invCheck(int x_fuzz, int y_fuzz, int z_fuzz, double p_fuzz)
   }  // while end
 
   printf("\n\niBefore: %lf, iExp: %lf\n", iBefore, iExp);
-  assert(ltedbl(iBefore, iExp)
-         && "[INV CHECK FAILED]: Invalid candidate invariant");
+  //assert(ltedbl(iBefore, iExp)
+         //&& "[INV CHECK FAILED]: Invalid candidate invariant");
+  if (iBefore - iExp > DLIM) {
+    save_crash_data(x_fuzz, y_fuzz, z_fuzz, p_fuzz, iBefore - iExp);
+    assert(0);
+  }
 }
 
 __AFL_FUZZ_INIT();

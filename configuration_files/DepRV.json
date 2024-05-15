@@ -1,5 +1,8 @@
 {
     "Sample_Points": {
+        "Probs": [
+            "p"
+        ],
         "Integers": [
             "n",
             "x",
@@ -13,5 +16,14 @@
         "pre": [
             "1/4*(n*n)"
         ]
+    },
+    "cgen": {
+        "probs" : ["p"],
+        "vars" : "{'n' : 'int', 'x' : 'int', 'y': ' int', 'p' : 'double'}",
+        "guard": "n > 0",
+        "loopbody": "",
+        "pre": "1/4*(n*n)",
+        "post": "x*y",
+	    "template":"c_template/deprv.c.in"
     }
 }

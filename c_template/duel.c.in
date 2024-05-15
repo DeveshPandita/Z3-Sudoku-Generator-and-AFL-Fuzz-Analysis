@@ -1,0 +1,191 @@
+#include <assert.h>
+#include <inttypes.h>
+#include <limits.h>
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <stdbool.h>
+
+#define DLIM @DELIM_VALUE@
+
+int eqdbl(double a, double b) { return fabs(a - b) < DLIM; }
+int neqdbl(double a, double b) { return !eqdbl(a, b); }
+int ltedbl(double a, double b) { return (a - b) < DLIM; }
+int ltdbl(double a, double b) { return (a - b) < DLIM; }
+int gtedbl(double a, double b) { return (b - a) < DLIM; }
+int gtdbl(double a, double b) { return (b - a) < DLIM; }
+
+typedef struct {
+  int value;
+  double prob;
+} pd_t;
+
+pd_t binomial(double p, int i) {
+  pd_t pd;
+  if (i == 0) {
+    pd.value = 1;
+    pd.prob = p;
+  } else if (i == 1) {
+    pd.value = 0;
+    pd.prob = 1 - p;
+  } else {
+    pd.value = -1;
+    pd.prob = 0;
+  }
+  return pd;
+}
+
+void save_crash_data(bool c, bool t, double p1, double p2, double diff) {
+  FILE *fp = fopen("crashing_data.csv", "w");
+  fprintf(fp, "c,%d\n", c);
+  fprintf(fp, "t,%d\n", t);
+  fprintf(fp, "p1,%lf\n", p1);
+  fprintf(fp, "p2,%lf\n", p2);
+  fprintf(fp, "diff,%lf\n", diff);
+  fclose(fp);
+}
+
+double Pre(bool c, bool t, double p1, double p2) { return (1 + c*(-p2/(p1 + p2 - p1 * p2))); }
+
+double IPrime(bool c, bool t, double p1, double p2) { 
+    double iprime = @EXIST_EXPRESSION@;
+    return iprime;
+}
+
+double Inv(bool c, bool t, double p1, double p2) {
+
+  double guard = (double)(c == 1);
+  double iPrime = IPrime(c, t, p1, p2);
+  return (double)c + guard * iPrime;
+}
+
+void invCheck(bool c_fuzz, bool t_fuzz, double p1_fuzz, double p2_fuzz) {
+  printf("\nPerforming induction check...\n");
+
+  if (!(c_fuzz == 1)) {
+    return;
+  }
+
+  double iBefore = Inv(c_fuzz, t_fuzz, p1_fuzz, p2_fuzz);
+
+  double iExp = 0.0;
+
+  // iterator for the distribution
+  unsigned i1 = 0;
+
+  bool t = t_fuzz;
+  bool c = c_fuzz;
+  
+  while (1) {
+    int d1 = 0;
+    int d2 = 0;
+    pd_t a1 = binomial(p1_fuzz, i1++);
+    d1 = a1.value;
+
+    if (d1 == -1) break; // exit condition for outer while loop
+
+    unsigned i2 = 0;    
+    while(1) {
+      pd_t a2 = binomial(p2_fuzz, i2++);
+      d2 = a2.value;
+
+      double p1 = a1.prob;
+      double p2 = a2.prob;
+
+      if (d2 == -1) break; // exit condition for inner while loop
+      
+      if (t) {
+      	if (d1)
+      	c = 0;
+      	else
+      	t = !t;
+      }
+      else {
+      	if (d2)
+      	c = 0;
+      	else
+      	t = !t;
+      }
+
+      iExp += (p1 * p2) * Inv(c, t, p1, p2);
+    }
+  }
+
+  printf("iBefore: %lf, iExp: %lf\n\n", iBefore, iExp);
+  // assert((iBefore - iExp) < 1e-3 && "[INV CHECK FAILED]: Invalid candidate invariant");
+  if (iBefore - iExp > DLIM) {
+    save_crash_data(c_fuzz, t_fuzz, p1_fuzz, p2_fuzz, iBefore - iExp);
+    assert(0);
+  }
+}
+
+void preCheck(bool c_fuzz, bool t_fuzz, double p1_fuzz, double p2_fuzz) {
+  printf("\nPerforming pre-check...\n");
+
+  // initialize state vars
+
+  bool c = c_fuzz;
+  bool t = t_fuzz;
+  double p1 = p1_fuzz;
+  double p2 = p2_fuzz;
+  double pre = Pre(c, t, p1, p2);
+  double iPre = Inv(c, t, p1, p2);
+
+  printf("p1 = %lf, p2 = %lf, c = %d, t = %d\n", p1, p2, c, t);
+  printf("pre: %lf, iPre: %lf\n", pre, iPre);
+  //assert((pre - iPre) < 1e-3 && "[PRE-CHECK FAILED]: Invalid candidate invariant");
+  if (pre - iPre > DLIM) {
+    save_crash_data(c_fuzz, t_fuzz, p1_fuzz, p2_fuzz, pre - iPre);
+    assert(0);
+  }
+}
+
+
+
+__AFL_FUZZ_INIT();
+
+int main(void) {
+  ssize_t bytes_read;
+
+  __AFL_INIT();
+  uint8_t *magic = __AFL_FUZZ_TESTCASE_BUF;
+
+  printf("epsilon for double comparision: %0.9lf\n", 1e-3);
+
+  while (__AFL_LOOP(INT_MAX)) {
+    size_t len = __AFL_FUZZ_TESTCASE_LEN;
+    uint8_t *buffptr = magic;
+
+    // check size of the input buffer
+    if (len < 2 * sizeof(int8_t) + sizeof(double))
+      continue;
+
+    // declare state variables
+    bool c_fuzz = *(bool *)buffptr;
+    buffptr += sizeof(bool);
+
+    bool t_fuzz = *(bool *)buffptr;
+    buffptr += sizeof(bool);
+
+    double p1 = *(double *)buffptr;
+    buffptr += sizeof(double);
+    
+    double p2 = *(double *)buffptr;
+    buffptr += sizeof(double);
+
+    if (!(0.001 <= p1 && p1 <= 0.999))
+      continue;
+      
+    if (!(0.001 <= p2 && p2 <= 0.999))
+      continue;
+
+    printf("Fuzzer input:\n c_fuzz: %d, t_fuzz: %d, p1: %lf, p2: %lf \n", c_fuzz, t_fuzz, p1, p2);
+
+    // do the pre-check
+    preCheck(c_fuzz, t_fuzz, p1, p2);
+    invCheck(c_fuzz, t_fuzz, p1, p2);
+  }
+
+  return 0;
+}

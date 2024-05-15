@@ -21,5 +21,14 @@
         "Probs": [
             "(1/p)"
         ]
+    },
+    "cgen": {
+        "probs" : ["p"],
+        "vars" : "{'z' : 'bool', 'x' : 'int', 'y' : 'int', 'p' : 'double'}",
+        "guard": "z != 0",
+        "loopbody": "",
+        "pre": "(y*(1-p)/p)",
+        "post": "x",
+	    "template":"c_template/geoar0.c.in"
     }
 }

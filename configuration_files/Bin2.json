@@ -21,5 +21,14 @@
         "Reals": [
             "n*p"
         ]
+    },
+    "cgen": {
+        "probs" : ["p"],
+        "vars" : "{'n' : 'int', 'x' : 'int', 'y' : 'int', 'p' : 'double'}",
+        "guard": "n > 0",
+        "loopbody": "",
+        "pre": "(1-p) *n*y",
+        "post": "x",
+	    "template":"c_template/bin2.c.in"
     }
 }

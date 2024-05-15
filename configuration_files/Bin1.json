@@ -22,5 +22,14 @@
             "(M*p)",
             "(n*p)"
         ]
+    },
+    "cgen": {
+        "probs" : ["p"],
+        "vars" : "{'x' : 'int', 'n' : 'int', 'M' : 'int', 'p': 'double'}",
+        "guard": "n < M",
+        "loopbody": "",
+        "pre": "-p*n + p*M",
+        "post": "x",
+	    "template":"c_template/bin1.c.in"
     }
 }

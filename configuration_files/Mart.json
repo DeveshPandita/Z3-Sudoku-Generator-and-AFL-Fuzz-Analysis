@@ -21,5 +21,14 @@
             "rounds==0",
             "b==1"
         ]
+    },
+    "cgen": {
+        "probs" : ["p"],
+        "vars" : "{'rounds' : 'int', 'b' : 'int', 'c' : 'int', 'p': 'double'}",
+        "guard": "b > 0",
+        "loopbody": "",
+        "pre": "",
+        "post": "rounds",
+	    "template":"c_template/Mart.c.in"
     }
 }

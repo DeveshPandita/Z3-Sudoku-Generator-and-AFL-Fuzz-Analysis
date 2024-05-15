@@ -1,0 +1,152 @@
+#include <assert.h>
+#include <inttypes.h>
+#include <limits.h>
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+#define DLIM @DELIM_VALUE@
+
+int eqdbl(double a, double b) { return fabs(a - b) < DLIM; }
+int neqdbl(double a, double b) { return !eqdbl(a, b); }
+int ltedbl(double a, double b) { return (a - b) < DLIM; }
+int ltdbl(double a, double b) { return (a - b) < DLIM; }
+int gtedbl(double a, double b) { return (b - a) < DLIM; }
+int gtdbl(double a, double b) { return (b - a) < DLIM; }
+
+typedef struct {
+  int value;
+  double prob;
+} pd_t;
+
+pd_t binomial(double p, int i) {
+  pd_t pd;
+  if (i == 0) {
+    pd.value = 1;
+    pd.prob = p;
+  } else if (i == 1) {
+    pd.value = 0;
+    pd.prob = 1 - p;
+  } else {
+    pd.value = -1;
+    pd.prob = 0;
+  }
+  return pd;
+}
+
+
+void save_crash_data(int count, int x, double diff) {
+  FILE *fp = fopen("crashing_data.csv", "w");
+  fprintf(fp, "count,%d\n", count);
+  fprintf(fp, "x,%d\n", x);
+  fprintf(fp, "diff,%lf\n", diff);
+  fclose(fp);
+}
+
+double Pre(int count, int x) {
+  return (1);
+}
+
+double IPrime(int count, int x) {
+    double iprime = @EXIST_EXPRESSION@;
+    return iprime;
+}
+
+double Inv(int count, int x) {
+  double guard = (double)(x <= 10);
+  double iPrime = IPrime(count, x);
+  return (double)count + guard * iPrime;
+}
+
+void invCheck(int count_fuzz, int x_fuzz) {
+  printf("\nPerforming induction check...\n");
+
+  if (!(x_fuzz <= 10)) { // if guard is false return
+    return;
+  }
+
+  double iBefore = Inv(count_fuzz, x_fuzz);
+
+  double iExp = 0.0;
+
+  // iterator for the distribution
+  unsigned i = 0;
+
+  int x = 0 , count = 0;
+  while ( x <= 10) {
+    x = x + 1; // Add semicolon here
+    count = count + 1; // Add semicolon here
+    iExp += 1 * Inv(count, x);
+  }
+
+  printf("iBefore: %lf, iExp: %lf\n\n", iBefore, iExp);
+  if (iBefore - iExp > DLIM) {
+    save_crash_data(count_fuzz, x_fuzz, iBefore - iExp);
+    assert(0);
+  }
+}
+
+void preCheck(int count_fuzz, int x_fuzz) {
+  printf("\nPerforming pre-check...\n");
+
+  // initialize state vars
+
+  int count = 0;
+  int x = x_fuzz;
+  if (!(x_fuzz <= 10))
+    return;
+
+  double pre = Pre(count, x);
+  double iPre = Inv(count, x);
+
+  printf("count = %d, x = %d\n", count, x);
+  printf("pre: %lf, iPre: %lf\n", pre, iPre);
+  // assert((pre - iPre) < 1e-3 && "[PRE-CHECK FAILED]: Invalid candidate invariant");
+
+  if (pre - iPre > DLIM) {
+    save_crash_data(count_fuzz, x_fuzz, pre - iPre);
+    assert(0);
+  }
+}
+
+
+
+
+
+
+__AFL_FUZZ_INIT();
+
+int main(void) {
+  ssize_t bytes_read;
+
+  __AFL_INIT();
+  uint8_t *magic = __AFL_FUZZ_TESTCASE_BUF;
+
+  printf("epsilon for double comparision: %0.5lf\n", DLIM);
+
+  while (__AFL_LOOP(INT_MAX)) {
+    size_t len = __AFL_FUZZ_TESTCASE_LEN;
+    uint8_t *buffptr = magic;
+
+    // check size of the input buffer
+    if (len < 3 * sizeof(int8_t) + sizeof(double))
+      continue;
+
+    // declare state variables
+    int count_fuzz = *(int8_t *)buffptr;
+    buffptr += sizeof(int8_t);
+
+    int x_fuzz = *(int8_t *)buffptr;
+    buffptr += sizeof(int8_t);
+
+
+    printf("Fuzzer input:\n count_fuzz: %d, x_fuzz: %d\n", count_fuzz, x_fuzz);
+
+    // do the pre-check
+    preCheck(count_fuzz, x_fuzz);
+    invCheck(count_fuzz, x_fuzz);
+  }
+
+  return 0;
+}

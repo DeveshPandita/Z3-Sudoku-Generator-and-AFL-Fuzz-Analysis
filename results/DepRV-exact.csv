@@ -1,0 +1,2 @@
+,generated_inv,post,sampling_time,learning_time,verifying_time,total_time
+DepRV,x*y + [n > 0] * (1+p)**1 * (n+x)**1 * (n+y)**1 * n**1*0,x*y,60.339715003967285,3.841132164001465,189.4907567501068,253.671856880188

@@ -19,5 +19,14 @@
             "(p1 + p2)/(p1 + p2 - p1*p2)"
         ],
         "post": "count"
+    },
+    "cgen": {
+        "probs" : ["p1", "p2"],
+        "vars" : "{'c1' : 'bool', 'c2' : 'bool', 'count' : 'int', 'p1' : 'double' , 'p2' : 'double'}",
+        "guard": "c1 + c2 == 0",
+        "loopbody": "",
+        "pre": "(p1 + p2)/(p1 + p2 - p1*p2)",
+        "post": "count",
+	    "template":"c_template/fair.c.in"
     }
 }

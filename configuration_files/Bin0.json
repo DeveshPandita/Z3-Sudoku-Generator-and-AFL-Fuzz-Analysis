@@ -18,12 +18,14 @@
         "post": "x"
     },
     "cgen": {
-        "probs" : ["p1"],
+        "probs" : ["p"],
         "vars" : "{'x' : 'int', 'y' : 'int', 'n' : 'int', 'p': 'double'}",
-        "guard": ,
-        "loopbody": ,
-        "pre": ,
-        "post": ,
-	    "template": "c_template/bin0.c.in"
+        "guard": "n > 0",
+        "loopbody": "",
+        "pre": "p * n * y",
+        "post": "x",
+	    "template":"c_template/bin0.c.in"
     }
 }
+
+

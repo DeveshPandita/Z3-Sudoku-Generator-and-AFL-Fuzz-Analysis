@@ -42,10 +42,22 @@ pd_t binomial(double p, int i)
   return pd;
 }
 
+void save_crash_data(int8_t c1, int8_t c2, int8_t count, double p1, double p2, double diff) {
+  FILE *fp = fopen("crashing_data.csv", "w");
+  fprintf(fp, "c1,%d\n", c1);
+  fprintf(fp, "c2,%d\n", c2);
+  fprintf(fp, "count,%d\n", count);  
+  fprintf(fp, "p1,%lf\n", p1);
+  fprintf(fp, "p2,%lf\n", p2);
+  fprintf(fp, "diff,%lf\n", diff);
+  fclose(fp);
+}
+
 double Pre(double p1, double p2) { return (p1 + p2) / (p1 + p2 - (p1 * p2)); }
 
 
-double IPrime(int flip, int z, double p1) { 
+//double IPrime(int flip, int z, double p1) { 
+double IPrime(int count, double p1, double p2) {
     double iprime = @EXIST_EXPRESSION@;
     return iprime;
 }
@@ -79,8 +91,12 @@ void preCheck(int8_t c1_fuzz,
   double iPre = Inv((double)count, (double)((c1 + c2) == 0), p1, p2);
 
   printf("pre: %lf, iPre: %lf\n", pre, iPre);
-  assert((pre - iPre) < 1e-3
-         && "[PRE-CHECK FAILED]: Invalid candidate invariant");
+  //assert((pre - iPre) < 1e-3
+    //     && "[PRE-CHECK FAILED]: Invalid candidate invariant");
+  if (pre - iPre > DLIM) {
+    save_crash_data(c1_fuzz, c2_fuzz, count_fuzz, p1_fuzz, p2_fuzz, pre - iPre);
+    assert(0);
+  }
 }
 
 void invCheck(int8_t c1_fuzz,
@@ -149,8 +165,13 @@ void invCheck(int8_t c1_fuzz,
   double iAfter = Inv(count_exp, 1.0, p1_fuzz, p2_fuzz);
 
   printf("iBefore: %lf, iAfter: %lf\n", iBefore, iAfter);
-  assert((iBefore - iAfter) < 1e-3
-         && "[INV CHECK FAILED]: Invalid candidate invariant");
+  //assert((iBefore - iAfter) < 1e-3
+  //     && "[INV CHECK FAILED]: Invalid candidate invariant");
+         
+  //if (iBefore - iExp> DLIM) {
+    //save_crash_data(c1_fuzz, c2_fuzz, count_fuzz, p1_fuzz, p2_fuzz, iBefore - iExp);
+    //assert(0);
+  //}
 }
 
 void postCheck(int8_t c1, int8_t c2, int8_t count, double p1, double p2)

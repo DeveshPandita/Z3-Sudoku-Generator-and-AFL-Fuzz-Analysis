@@ -12,5 +12,14 @@
             "1"
         ],
         "post": "count"
+    },
+    "cgen": {
+        "probs" : [""],
+        "vars" : "{'count' : 'int', 'x' : 'int'}",
+        "guard": "x <= 10",
+        "loopbody": "",
+        "pre": "1",
+        "post": "count",
+	    "template":"c_template/detm.c.in"
     }
 }

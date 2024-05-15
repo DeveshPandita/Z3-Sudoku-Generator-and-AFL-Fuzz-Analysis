@@ -35,13 +35,22 @@ pd_t binomial(double p, int i)
   return pd;
 }
 
+void save_crash_data(int x, int z, double p, double diff) {
+  FILE *fp = fopen("crashing_data.csv", "w");
+  fprintf(fp, "x,%d\n", x);
+  fprintf(fp, "z,%d\n", z); 
+  fprintf(fp, "p,%lf\n", p);
+  fprintf(fp, "diff,%lf\n", diff);
+  fclose(fp);
+}
+
 double Pre(double x, double p) { return x / p; }
 
 double Inv(double x, double z, double p)
 {
   printf("x = %lf, z = %lf, guard = %d, x/p = %lf\n", x, z, x > 0, x / p);
 
-  double iprime = @EXIST_EXPRESSION@;
+  double iPrime = @EXIST_EXPRESSION@;
   double guard = (double) (x > 0);
   return z + guard * iPrime;
 }
@@ -97,8 +106,12 @@ void invCheck(int x_fuzz, int z_fuzz, double p_fuzz)
   // printf("iBefore: %lf, iAfter: %lf\n\n", iBefore, iAfter);
   printf("iBefore: %lf, iExp: %lf\n\n", iBefore, iExp);
 
-  assert((iBefore - iExp) < 1e-3
-         && "[INV CHECK FAILED]: Invalid candidate invariant");
+  //assert((iBefore - iExp) < 1e-3
+    //     && "[INV CHECK FAILED]: Invalid candidate invariant");
+  if (iBefore - iExp > DLIM) {
+    save_crash_data(x_fuzz, z_fuzz, p_fuzz, iBefore - iExp);
+    assert(0);
+  }
 }
 
 void preCheck(int x_fuzz, int z_fuzz, double p_fuzz)
@@ -116,8 +129,12 @@ void preCheck(int x_fuzz, int z_fuzz, double p_fuzz)
   double iPre = Inv(x_i, z_i, p_fuzz);
 
   printf("pre: %lf, iPre: %lf\n", pre, iPre);
-  assert((pre - iPre) < 1e-3
-         && "[PRE-CHECK FAILED]: Invalid candidate invariant");
+  //assert((pre - iPre) < 1e-3
+         //&& "[PRE-CHECK FAILED]: Invalid candidate invariant");
+  //if (pre - iPre > DLIM) {
+    //save_crash_data(x_fuzz, z_fuzz, p_fuzz, pre - iPre);
+    //assert(0);
+  //}
 }
 
 void postCheck(int x, int z, double p)

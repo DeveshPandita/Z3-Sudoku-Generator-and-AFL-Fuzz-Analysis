@@ -1,0 +1,2 @@
+,generated_inv,post,sampling_time,learning_time,verifying_time,total_time
+Detm,count + [x <= 10] * [x <= 4.000 ]*(1*9)+[x > 4.000 ]*(x**-2*431),count,0.03672385215759277,0.5568060874938965,185.20755529403687,185.8011929988861

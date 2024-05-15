@@ -17,5 +17,14 @@
     },
     "additional features for exact":{
         "Reals": ["p1 + p2 - p1 * p2"]
+    },
+    "cgen": {
+        "probs" : ["p1","p2"],
+        "vars" : "{'c' : 'bool', 't' : 'bool', 'p1' : 'double', 'p2' : 'double'}",
+        "guard": "c == 1",
+        "loopbody": "",
+        "pre": "1 + c*(-p2/(p1 + p2 - p1 * p2))",
+        "post": "t",
+	    "template":"c_template/duel.c.in"
     }
 }

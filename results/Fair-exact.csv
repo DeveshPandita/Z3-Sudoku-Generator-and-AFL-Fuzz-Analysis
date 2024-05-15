@@ -1,0 +1,2 @@
+,generated_inv,post,sampling_time,learning_time,verifying_time,total_time
+Fair,count + [ c1 + c2 == 0] * (p1+p2)**1 * ((p1+p2)-p1*p2)**-1*1,count,5.13167405128479,1.1842503547668457,60.235321283340454,66.55141139030457

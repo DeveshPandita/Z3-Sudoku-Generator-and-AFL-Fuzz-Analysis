@@ -35,102 +35,98 @@ pd_t binomial(double p, int i) {
   return pd;
 }
 
-void save_crash_data(int flip, int z, double p, double diff) {
+void save_crash_data(int n, int z, double p, double diff) {
   FILE *fp = fopen("crashing_data.csv", "w");
-  fprintf(fp, "flip,%d\n", flip);
+  fprintf(fp, "n,%d\n", n);
   fprintf(fp, "z,%d\n", z);
   fprintf(fp, "p,%lf\n", p);
   fprintf(fp, "diff,%lf\n", diff);
   fclose(fp);
 }
 
-double Pre(int flip, int z, double p) { return (1 - p) / p; }
+double Pre(int n, int z, double p) { return (2 * n); }
 
-double IPrime(int flip, int z, double p1) { 
+double IPrime(int n, int z, double p) { 
     double iprime = @EXIST_EXPRESSION@;
     return iprime;
 }
 
-double Inv(int flip, int z, double p) {
+double Inv(int n, int z, double p) {
 
-  double guard = (double)(flip == 0);
-  double iPrime = IPrime(flip, z, p);
-  return (double)z + guard * iPrime;
+  double guard = (double)(n > 0);
+  double iPrime = IPrime(n,z,p);
+  return (double)n + guard * iPrime;
 }
 
-void invCheck(int flip_fuzz, int z_fuzz, double p_fuzz) {
+void invCheck(int n_fuzz, int z_fuzz, double p_fuzz) {
   printf("\nPerforming induction check...\n");
 
-  if (!(flip_fuzz == 0)) {
+  if (!(n_fuzz > 0)) {
     return;
   }
 
-  double iBefore = Inv(flip_fuzz, z_fuzz, p_fuzz);
+  double iBefore = Inv(n_fuzz, z_fuzz, p_fuzz);
 
   double iExp = 0.0;
 
   // iterator for the distribution
   unsigned i = 0;
 
-  while (1) {
-    pd_t a = binomial(p_fuzz, i++);
-    int d = a.value;
-    double pg_1 = a.prob;
+  int n = n_fuzz;
+  int z = z_fuzz;
+  int count = 0; // Add variable declaration for count
 
-    int flip = flip_fuzz;
-    int z = z_fuzz;
+  while (n > 0) {
+    pd_t a1 = binomial(0.5, i);
+    int d1 = a1.value;
+    double pg_1 = a1.prob;
+    
+    pd_t a2 = binomial(0.5, i);
+    int d2 = a2.value;
+    double pg_2 = a2.prob;
+    
+    pd_t a3 = binomial(0.5, i);
+    int d3 = a3.value;
+    double pg_3 = a3.prob;
+    
+    n = n - 1;
+    int c1 = d1 || d2 || d3;
+    int c2 = (!d1) || d2 || d3;
+    int c3 = d1 || (!d2) || d3;
+    count = count + c1 + c2 + c3;
 
-    if (d == -1)
-      break;
-
-    if (d)
-      flip = 1;
-    else
-      z = z + 1;
-
-    iExp += pg_1 * Inv(flip, z, p_fuzz);
-
-  } // while end
+    iExp += (pg_1 * pg_2 * pg_3) * Inv(n, z, p_fuzz);
+  }
 
   printf("iBefore: %lf, iExp: %lf\n\n", iBefore, iExp);
-  // assert((iBefore - iExp) < 1e-3 && "[INV CHECK FAILED]: Invalid candidate invariant");
+
   if (iBefore - iExp > DLIM) {
-    save_crash_data(flip_fuzz, z_fuzz, p_fuzz, iBefore - iExp);
+    save_crash_data(n_fuzz, z_fuzz, p_fuzz, iBefore - iExp);
     assert(0);
   }
 }
 
-void preCheck(int flip_fuzz, int z_fuzz, double p_fuzz) {
+
+void preCheck(int n_fuzz, int z_fuzz, double p_fuzz) {
   printf("\nPerforming pre-check...\n");
 
   // initialize state vars
 
-  int flip = 0;
+  int n = 0;
   int z = 0;
   double p = p_fuzz;
-  double pre = Pre(flip, z, p);
-  double iPre = Inv(flip, z, p);
+  double pre = Pre(n, z, p);
+  double iPre = Inv(n, z, p);
 
-  printf("p = %lf, flip = %d, z = %d\n", p, flip, z);
+  printf("p = %lf, n = %d, z = %d\n", p, n, z);
   printf("pre: %lf, iPre: %lf\n", pre, iPre);
   //assert((pre - iPre) < 1e-3 && "[PRE-CHECK FAILED]: Invalid candidate invariant");
   if (pre - iPre > DLIM) {
-    save_crash_data(flip_fuzz, z_fuzz, p_fuzz, pre - iPre);
+    save_crash_data(n_fuzz, z_fuzz, p_fuzz, pre - iPre);
     assert(0);
   }
 }
 
-void postCheck(int flip, int z, double p) {
-  printf("\nPerforming post check...\n");
-  if (flip == 0) {
-    return;
-  }
-
-  double iPost = Inv(flip, z, p);
-
-  printf("iPost: %lf, z: %d\n", iPost, z);
-  assert((iPost - (double)z) < 1e-3 && "[POST CHECK FAILED]: Invalid candidate invariant");
-}
 
 
 __AFL_FUZZ_INIT();
@@ -152,24 +148,25 @@ int main(void) {
       continue;
 
     // declare state variables
-    int flip_fuzz = *(int8_t *)buffptr;
+    int n_fuzz = *(int8_t *)buffptr;
     buffptr += sizeof(int8_t);
 
     int z_fuzz = *(int8_t *)buffptr;
     buffptr += sizeof(int8_t);
+    
+    int y_fuzz = *(int8_t *)buffptr;
+    buffptr += sizeof(int8_t);
 
-    double p = *(double *)buffptr;
-    buffptr += sizeof(double);
+    double p = 0.5;
 
     if (!(0.001 <= p && p <= 0.999))
       continue;
 
-    printf("Fuzzer input:\n flip_fuzz: %d, z_fuzz: %d, p: %lf \n", flip_fuzz, z_fuzz, p);
+    printf("Fuzzer input:\n n_fuzz: %d, z_fuzz: %d, p: %lf \n", n_fuzz, z_fuzz, p);
 
     // do the pre-check
-    preCheck(flip_fuzz, z_fuzz, p);
-    invCheck(flip_fuzz, z_fuzz, p);
-    postCheck(flip_fuzz, z_fuzz, p);
+    preCheck(n_fuzz, z_fuzz, p);
+    invCheck(n_fuzz, z_fuzz, p);
   }
 
   return 0;
